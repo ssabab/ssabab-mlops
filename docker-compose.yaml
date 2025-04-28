@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  kafka:
+    image: bitnami/kafka:latest
+    environment:
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_NODE_ID=${KAFKA_NODE_ID}
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:${KAFKA_BROKER_PORT},CONTROLLER://:${KAFKA_CONTROLLER_PORT}
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:${KAFKA_BROKER_PORT}
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=${KAFKA_NODE_ID}@kafka:${KAFKA_CONTROLLER_PORT}
+      - KAFKA_KRAFT_CLUSTER_ID=${KAFKA_CLUSTER_ID}
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    ports:
+      - ${KAFKA_BROKER_PORT}:${KAFKA_BROKER_PORT}
+    volumes:
+      - kafka_data:/bitnami/kafka
+    networks:
+      - docker_net
+
+  postgres:
+    image: bitnami/postgresql:latest
+    environment:
+      - POSTGRESQL_DATABASE=${POSTGRES_DB}
+      - POSTGRESQL_USERNAME=${POSTGRES_USER}
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/bitnami/postgresql
+    networks:
+      - docker_net
+
+  redis:
+    image: redis:latest
+    volumes:
+      - redis_data:/data
+    networks:
+      - docker_net
+
+  airflow:
+    image: bitnami/airflow:latest
+    environment:
+      - AIRFLOW_EXECUTOR=CeleryExecutor
+      - AIRFLOW__CELERY__BROKER_URL=${REDIS_URL}
+      - AIRFLOW__CELERY__RESULT_BACKEND=${AIRFLOW_RESULT_BACKEND}
+      - AIRFLOW_DATABASE_HOST=postgres
+      - AIRFLOW_DATABASE_NAME=${POSTGRES_DB}
+      - AIRFLOW_DATABASE_USERNAME=${POSTGRES_USER}
+      - AIRFLOW_DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - AIRFLOW_USERNAME=${AIRFLOW_USER}
+      - AIRFLOW_PASSWORD=${AIRFLOW_PASSWORD}
+      - AIRFLOW_EMAIL=${AIRFLOW_EMAIL}
+      - AIRFLOW_FERNET_KEY=${AIRFLOW_FERNET_KEY}
+      - AIRFLOW_SECRET_KEY=${AIRFLOW_SECRET_KEY}
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./project/airflow/dags:/opt/bitnami/airflow/dags
+      - ./project/airflow/logs:/opt/bitnami/airflow/logs
+      - ./project/airflow/plugins:/opt/bitnami/airflow/plugins
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - docker_net
+
+  airflow-scheduler:
+    image: bitnami/airflow:latest
+    environment:
+      - AIRFLOW_COMPONENT_TYPE=scheduler
+      - AIRFLOW_EXECUTOR=CeleryExecutor
+      - AIRFLOW__CELERY__BROKER_URL=${REDIS_URL}
+      - AIRFLOW__CELERY__RESULT_BACKEND=${AIRFLOW_RESULT_BACKEND}
+      - AIRFLOW_DATABASE_HOST=postgres
+      - AIRFLOW_DATABASE_NAME=${POSTGRES_DB}
+      - AIRFLOW_DATABASE_USERNAME=${POSTGRES_USER}
+      - AIRFLOW_DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - AIRFLOW_FERNET_KEY=${AIRFLOW_FERNET_KEY}
+      - AIRFLOW_SECRET_KEY=${AIRFLOW_SECRET_KEY}
+    volumes:
+      - ./project/airflow/dags:/opt/bitnami/airflow/dags
+      - ./project/airflow/logs:/opt/bitnami/airflow/logs
+      - ./project/airflow/plugins:/opt/bitnami/airflow/plugins
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - docker_net
+
+  airflow-worker:
+    image: bitnami/airflow:latest
+    environment:
+      - AIRFLOW_COMPONENT_TYPE=worker
+      - AIRFLOW_EXECUTOR=CeleryExecutor
+      - AIRFLOW__CELERY__BROKER_URL=${REDIS_URL}
+      - AIRFLOW__CELERY__RESULT_BACKEND=${AIRFLOW_RESULT_BACKEND}
+      - AIRFLOW_DATABASE_HOST=postgres
+      - AIRFLOW_DATABASE_NAME=${POSTGRES_DB}
+      - AIRFLOW_DATABASE_USERNAME=${POSTGRES_USER}
+      - AIRFLOW_DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - AIRFLOW_FERNET_KEY=${AIRFLOW_FERNET_KEY}
+      - AIRFLOW_SECRET_KEY=${AIRFLOW_SECRET_KEY}
+    volumes:
+      - ./project/airflow/dags:/opt/bitnami/airflow/dags
+      - ./project/airflow/logs:/opt/bitnami/airflow/logs
+      - ./project/airflow/plugins:/opt/bitnami/airflow/plugins
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - docker_net
+
+  spark-master:
+    image: bitnami/spark:3.5.5
+    environment:
+      - SPARK_MODE=master
+      - SPARK_JARS_PACKAGES=org.postgresql:postgresql:42.2.27
+    ports:
+      - 8181:8080
+      - 7077:7077
+      - 4040:4040
+    volumes:
+      - ./project/spark:/opt/spark
+    networks:
+      - docker_net
+
+  spark-worker-1:
+    image: bitnami/spark:3.5.5
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_JARS_PACKAGES=org.postgresql:postgresql:42.2.27
+    ports:
+      - 8081:8081
+    volumes:
+      - ./project/spark:/opt/spark
+    depends_on:
+      - spark-master
+    networks:
+      - docker_net
+
+volumes:
+  kafka_data:
+  postgres_data:
+  redis_data:
+
+networks:
+  docker_net:
+    driver: bridge
