@@ -1,0 +1,26 @@
+FROM bitnami/spark:3.5.4
+
+USER root
+
+# 필수 패키지 설치 (gcc, make, freetype, fontconfig 포함)
+RUN install_packages \
+    gcc \
+    g++ \
+    make \
+    pkg-config \
+    libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
+    fontconfig \
+    python3-dev \
+    python3-pip \
+    fonts-nanum
+
+# 폰트 캐시 갱신
+RUN fc-cache -fv
+
+# matplotlib 설치
+RUN pip install --upgrade pip && \
+    pip install matplotlib
+
+USER 1001
