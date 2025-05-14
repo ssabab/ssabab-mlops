@@ -24,7 +24,7 @@ with DAG(
 
     kafka_consumer = SparkSubmitOperator(
         task_id="consume_from_kafka",
-        application="/opt/airflow/dags/scripts/test_consumer.py",
+        application="/opt/spark-jobs/test_consumer.py",
         conn_id="spark_default",
         verbose=True,
         packages="org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0",
