@@ -1,8 +1,26 @@
+# Airflow Core
+apache-airflow==2.10.5
+
+# Airflow Providers
+apache-airflow-providers-apache-spark
+apache-airflow-providers-apache-kafka
+apache-airflow-providers-postgres
+apache-airflow-providers-mysql
+
 # Kafka
-kafka-python==2.0.2
+confluent-kafka
+kafka-python
 
 # Spark
 pyspark==3.5.4
 
-# Airflow
-apache-airflow==2.10.5
+# PostgreSQL
+psycopg2-binary==2.9.9
+
+# env
+python-dotenv==1.0.1
+
+# Pandas 
+pandas==2.2.2
+
+requests==2.31.0
