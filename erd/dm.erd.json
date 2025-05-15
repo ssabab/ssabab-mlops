@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -202,
-    "scrollLeft": 0,
+    "scrollTop": -8,
+    "scrollLeft": -610,
     "zoomLevel": 1,
     "show": 431,
     "database": 16,
@@ -36,7 +36,10 @@
       "qiO-0tn3WbXBSEmsAx37v",
       "Z9PCVNnj-bCYfBjZMCs3j",
       "aWWLtTHq8_sIUXawd8XTA",
-      "1Hi6lPz_Te6g0uWu37BjN"
+      "1Hi6lPz_Te6g0uWu37BjN",
+      "TpwKX2hnuRee-6D7CByLG",
+      "f2nWdhEXXlyqQLVvqVWc2",
+      "l979n34GeRK1fWP0TLMGX"
     ],
     "relationshipIds": [],
     "indexIds": [],
@@ -236,6 +239,125 @@
         "meta": {
           "updateAt": 1746687568663,
           "createAt": 1746687418282
+        }
+      },
+      "TpwKX2hnuRee-6D7CByLG": {
+        "id": "TpwKX2hnuRee-6D7CByLG",
+        "name": "dm_user_rating_score",
+        "comment": "사용자 평점 비교",
+        "columnIds": [
+          "u-6It5nkloZc9FQlakJ4Y",
+          "08kScb3S0vXsXjC0N7lQi",
+          "jJMyP3x7DTsX5id1lmvwe",
+          "Mm0AbUYctehkIVtiZccxH",
+          "KUJriaFI7ItkYjneHpm3j"
+        ],
+        "seqColumnIds": [
+          "vQAZVUq3I97a8-E6wyAx_",
+          "u-6It5nkloZc9FQlakJ4Y",
+          "08kScb3S0vXsXjC0N7lQi",
+          "jJMyP3x7DTsX5id1lmvwe",
+          "Mm0AbUYctehkIVtiZccxH",
+          "KUJriaFI7ItkYjneHpm3j",
+          "8y-idCeyu4KKIzBd5QFk1",
+          "T4WGMBuFlC6NlvEjo9Cgz",
+          "r2wPbhQDOwn5_-NxcjwR2",
+          "bEhdA9sMOuoY7TzJ4ZAoc",
+          "4z_lHbWp0ev8bD03VVREi"
+        ],
+        "ui": {
+          "x": 997,
+          "y": 462,
+          "zIndex": 13,
+          "widthName": 116,
+          "widthComment": 93,
+          "color": "#795548"
+        },
+        "meta": {
+          "updateAt": 1747200670494,
+          "createAt": 1747188554574
+        }
+      },
+      "ziuC6q5Bsoox9osroZJEG": {
+        "id": "ziuC6q5Bsoox9osroZJEG",
+        "name": "",
+        "comment": "",
+        "columnIds": [
+          "DiuAoI9Rr4M3KBtB2bZi7"
+        ],
+        "seqColumnIds": [
+          "DiuAoI9Rr4M3KBtB2bZi7"
+        ],
+        "ui": {
+          "x": 592,
+          "y": 683,
+          "zIndex": 41,
+          "widthName": 60,
+          "widthComment": 60,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1747188662579,
+          "createAt": 1747188657683
+        }
+      },
+      "f2nWdhEXXlyqQLVvqVWc2": {
+        "id": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "dm_user_rating_top_bottom",
+        "comment": "사용자 최고/최저 평점 음식 top5",
+        "columnIds": [
+          "FLO4uNWDn0u8OfNDj3tTV",
+          "hko5tprc0JKN1aTXQFqNH",
+          "A8N87r_YoIlXgWJUbdo8e"
+        ],
+        "seqColumnIds": [
+          "l9VUyhduLEgRi59el6vVM",
+          "FLO4uNWDn0u8OfNDj3tTV",
+          "lEarD0yRxNAi7SGpwQLEi",
+          "fHokTayNi3lYc1JExXW8V",
+          "7kXYxnr5GFzOMpFgHi_ih",
+          "hko5tprc0JKN1aTXQFqNH",
+          "A8N87r_YoIlXgWJUbdo8e",
+          "1lZTd3VAuHz6KERzRtYQq"
+        ],
+        "ui": {
+          "x": 997,
+          "y": 266,
+          "zIndex": 121,
+          "widthName": 151,
+          "widthComment": 176,
+          "color": "#795548"
+        },
+        "meta": {
+          "updateAt": 1747200669118,
+          "createAt": 1747188929610
+        }
+      },
+      "l979n34GeRK1fWP0TLMGX": {
+        "id": "l979n34GeRK1fWP0TLMGX",
+        "name": "dm_user_tag_preference",
+        "comment": "태그별 사용자 선호도 분석",
+        "columnIds": [
+          "v94jewY0ftldO67NvzR5v",
+          "EjbCT1Mq8vq-jzfueRxzX"
+        ],
+        "seqColumnIds": [
+          "v94jewY0ftldO67NvzR5v",
+          "EjbCT1Mq8vq-jzfueRxzX",
+          "iH-OO8nBj60iwLgYF1tJO",
+          "eLKcbI0JxLEpNezarZi_V"
+        ],
+        "ui": {
+          "x": 995,
+          "y": 81,
+          "zIndex": 123,
+          "widthName": 131,
+          "widthComment": 144,
+          "color": "#795548"
+        },
+        "meta": {
+          "updateAt": 1747200665296,
+          "createAt": 1747188931450
         }
       }
     },
@@ -939,11 +1061,508 @@
           "updateAt": 1746687576014,
           "createAt": 1746687568663
         }
+      },
+      "vQAZVUq3I97a8-E6wyAx_": {
+        "id": "vQAZVUq3I97a8-E6wyAx_",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "사용자 평가 성향 분석 데이터 마트",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 186,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747188564780,
+          "createAt": 1747188564780
+        }
+      },
+      "DiuAoI9Rr4M3KBtB2bZi7": {
+        "id": "DiuAoI9Rr4M3KBtB2bZi7",
+        "tableId": "ziuC6q5Bsoox9osroZJEG",
+        "name": "",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747188662579,
+          "createAt": 1747188662579
+        }
+      },
+      "8y-idCeyu4KKIzBd5QFk1": {
+        "id": "8y-idCeyu4KKIzBd5QFk1",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "deviation_json",
+        "comment": "{\"전체\": -0.3, \"기수\": 0.1, \"반\": -0.5, \"성별\": -0.2}",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 78,
+          "widthComment": 249,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747192492247,
+          "createAt": 1747188697778
+        }
+      },
+      "T4WGMBuFlC6NlvEjo9Cgz": {
+        "id": "T4WGMBuFlC6NlvEjo9Cgz",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "group_value",
+        "comment": "NULL, 13기, 4반, 남자, 21",
+        "dataType": "vatchar(10)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 67,
+          "widthComment": 134,
+          "widthDataType": 61,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747188860845,
+          "createAt": 1747188794458
+        }
+      },
+      "r2wPbhQDOwn5_-NxcjwR2": {
+        "id": "r2wPbhQDOwn5_-NxcjwR2",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "group_avg",
+        "comment": "",
+        "dataType": "float4",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747188902340,
+          "createAt": 1747188865553
+        }
+      },
+      "bEhdA9sMOuoY7TzJ4ZAoc": {
+        "id": "bEhdA9sMOuoY7TzJ4ZAoc",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "user_avg",
+        "comment": "",
+        "dataType": "float4",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191083227,
+          "createAt": 1747188898818
+        }
+      },
+      "4z_lHbWp0ev8bD03VVREi": {
+        "id": "4z_lHbWp0ev8bD03VVREi",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "date",
+        "comment": "",
+        "dataType": "DATE",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198267815,
+          "createAt": 1747188908690
+        }
+      },
+      "u-6It5nkloZc9FQlakJ4Y": {
+        "id": "u-6It5nkloZc9FQlakJ4Y",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "user_id",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191179004,
+          "createAt": 1747188913482
+        }
+      },
+      "l9VUyhduLEgRi59el6vVM": {
+        "id": "l9VUyhduLEgRi59el6vVM",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "dm_user_rating_top_bottom",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 151,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747188939011,
+          "createAt": 1747188939010
+        }
+      },
+      "EjbCT1Mq8vq-jzfueRxzX": {
+        "id": "EjbCT1Mq8vq-jzfueRxzX",
+        "tableId": "l979n34GeRK1fWP0TLMGX",
+        "name": "tag_json",
+        "comment": "{\"한식\", \"밥\", \"국\"}",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 97,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747192386407,
+          "createAt": 1747188966834
+        }
+      },
+      "iH-OO8nBj60iwLgYF1tJO": {
+        "id": "iH-OO8nBj60iwLgYF1tJO",
+        "tableId": "l979n34GeRK1fWP0TLMGX",
+        "name": "food_tag",
+        "comment": "밥, 면, 국, 고기, 야채, 기타",
+        "dataType": "varchar(10)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 139,
+          "widthDataType": 61,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191415362,
+          "createAt": 1747188967146
+        }
+      },
+      "eLKcbI0JxLEpNezarZi_V": {
+        "id": "eLKcbI0JxLEpNezarZi_V",
+        "tableId": "l979n34GeRK1fWP0TLMGX",
+        "name": "date",
+        "comment": "",
+        "dataType": "DATE",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198272318,
+          "createAt": 1747188967370
+        }
+      },
+      "v94jewY0ftldO67NvzR5v": {
+        "id": "v94jewY0ftldO67NvzR5v",
+        "tableId": "l979n34GeRK1fWP0TLMGX",
+        "name": "user_id",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198271214,
+          "createAt": 1747188968762
+        }
+      },
+      "lEarD0yRxNAi7SGpwQLEi": {
+        "id": "lEarD0yRxNAi7SGpwQLEi",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "rank",
+        "comment": "1~5 / -1~-5",
+        "dataType": "INT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 65,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191079907,
+          "createAt": 1747189114145
+        }
+      },
+      "fHokTayNi3lYc1JExXW8V": {
+        "id": "fHokTayNi3lYc1JExXW8V",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "food_id",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191080403,
+          "createAt": 1747189114449
+        }
+      },
+      "7kXYxnr5GFzOMpFgHi_ih": {
+        "id": "7kXYxnr5GFzOMpFgHi_ih",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "food_name",
+        "comment": "",
+        "dataType": "VARCHAR",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 61,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747191080883,
+          "createAt": 1747189147217
+        }
+      },
+      "hko5tprc0JKN1aTXQFqNH": {
+        "id": "hko5tprc0JKN1aTXQFqNH",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_foods_json",
+        "comment": "[{\"food_name\": \"돈까스\", \"score\": 5.0}, {\"food_name\": \"김치찌개\", \"score\": 4.8}]",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 86,
+          "widthComment": 411,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747192286272,
+          "createAt": 1747189147377
+        }
+      },
+      "1lZTd3VAuHz6KERzRtYQq": {
+        "id": "1lZTd3VAuHz6KERzRtYQq",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "date",
+        "comment": "",
+        "dataType": "DATE",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198273375,
+          "createAt": 1747189147489
+        }
+      },
+      "FLO4uNWDn0u8OfNDj3tTV": {
+        "id": "FLO4uNWDn0u8OfNDj3tTV",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "user_id",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198270110,
+          "createAt": 1747189188393
+        }
+      },
+      "A8N87r_YoIlXgWJUbdo8e": {
+        "id": "A8N87r_YoIlXgWJUbdo8e",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_foods_json",
+        "comment": "[{\"food_name\": \"오이무침\", \"score\": 2.0}]",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 93,
+          "widthComment": 213,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747192291568,
+          "createAt": 1747192274407
+        }
+      },
+      "jJMyP3x7DTsX5id1lmvwe": {
+        "id": "jJMyP3x7DTsX5id1lmvwe",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "total_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198241951,
+          "createAt": 1747197856855
+        }
+      },
+      "Mm0AbUYctehkIVtiZccxH": {
+        "id": "Mm0AbUYctehkIVtiZccxH",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "ord_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198252766,
+          "createAt": 1747197857151
+        }
+      },
+      "KUJriaFI7ItkYjneHpm3j": {
+        "id": "KUJriaFI7ItkYjneHpm3j",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "gender_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 73,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747198257142,
+          "createAt": 1747197857416
+        }
+      },
+      "08kScb3S0vXsXjC0N7lQi": {
+        "id": "08kScb3S0vXsXjC0N7lQi",
+        "tableId": "TpwKX2hnuRee-6D7CByLG",
+        "name": "score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747200413017,
+          "createAt": 1747198101824
+        }
       }
     },
     "relationshipEntities": {},
     "indexEntities": {},
     "indexColumnEntities": {},
-    "memoEntities": {}
+    "memoEntities": {
+      "6d3bkIYpCs6bgXxZipc5p": {
+        "id": "6d3bkIYpCs6bgXxZipc5p",
+        "value": "",
+        "ui": {
+          "x": 908,
+          "y": 475,
+          "zIndex": 121,
+          "width": 116,
+          "height": 100,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1747188927850,
+          "createAt": 1747188927850
+        }
+      }
+    }
   }
 }

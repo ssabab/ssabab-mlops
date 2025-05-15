@@ -5,7 +5,6 @@ apache-airflow==2.10.5
 apache-airflow-providers-apache-spark
 apache-airflow-providers-apache-kafka
 apache-airflow-providers-postgres
-apache-airflow-providers-mysql
 
 # Kafka
 confluent-kafka
@@ -13,6 +12,9 @@ kafka-python
 
 # Spark
 pyspark==3.5.4
+
+# MySQL
+pymysql
 
 # PostgreSQL
 psycopg2-binary==2.9.9
