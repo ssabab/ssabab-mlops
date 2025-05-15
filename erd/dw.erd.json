@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -794.9047,
-    "scrollLeft": -669.12,
+    "scrollTop": -788.6667,
+    "scrollLeft": -800,
     "zoomLevel": 0.76,
     "show": 431,
     "database": 4,
@@ -75,6 +75,7 @@
           "8I803ddu6-u-pEsJTlYLU",
           "Sya1IXCuEhsJFHFtcEk1m",
           "MiG2ch6n0HztJL5GDNSRg",
+          "N_CBEputoFhQYpDjWtQE2",
           "2RKB9t4qQaFi5DBgKbM4k",
           "8ojp_VjVOWHXdX5kmFq7g"
         ],
@@ -94,19 +95,20 @@
           "MiG2ch6n0HztJL5GDNSRg",
           "SUw16ma9CGCGcQ9zTI781",
           "YcjOeXOKahK6MRlLKMjSM",
+          "N_CBEputoFhQYpDjWtQE2",
           "2RKB9t4qQaFi5DBgKbM4k",
           "8ojp_VjVOWHXdX5kmFq7g"
         ],
         "ui": {
-          "x": 531.3053,
-          "y": 765.6642,
+          "x": 585.2528,
+          "y": 778.8224,
           "zIndex": 2,
           "widthName": 60,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1747200318689,
+          "updateAt": 1747287656827,
           "createAt": 1745732291172
         }
       },
@@ -212,7 +214,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1747110061924,
+          "updateAt": 1747286363036,
           "createAt": 1745769318707
         }
       },
@@ -323,15 +325,15 @@
           "bt_lvm2zd0HBZstaEnFxx"
         ],
         "ui": {
-          "x": 555.6485,
-          "y": 1328.1544,
+          "x": 560.9116,
+          "y": 1341.3123,
           "zIndex": 488,
           "widthName": 60,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1747110069466,
+          "updateAt": 1747286311960,
           "createAt": 1747109872614
         }
       },
@@ -1997,6 +1999,26 @@
           "updateAt": 1747200786735,
           "createAt": 1747200768109
         }
+      },
+      "N_CBEputoFhQYpDjWtQE2": {
+        "id": "N_CBEputoFhQYpDjWtQE2",
+        "tableId": "AoBgC2zwAxu2HvHqY9EW7",
+        "name": "class",
+        "comment": "반",
+        "dataType": "INT",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1747287646599,
+          "createAt": 1747287635455
+        }
       }
     },
     "relationshipEntities": {
@@ -2010,8 +2032,8 @@
           "columnIds": [
             "MTzusMWK2VdoUXFwfnEup"
           ],
-          "x": 531.3053,
-          "y": 1092.3308666666667,
+          "x": 585.2528,
+          "y": 1125.4890666666665,
           "direction": 1
         },
         "end": {
@@ -2094,8 +2116,8 @@
           "columnIds": [
             "MTzusMWK2VdoUXFwfnEup"
           ],
-          "x": 939.3053,
-          "y": 961.6642,
+          "x": 993.2528,
+          "y": 986.8224,
           "direction": 2
         },
         "end": {
@@ -2122,8 +2144,8 @@
           "columnIds": [
             "MTzusMWK2VdoUXFwfnEup"
           ],
-          "x": 531.3053,
-          "y": 830.9975333333333,
+          "x": 585.2528,
+          "y": 848.1557333333333,
           "direction": 1
         },
         "end": {
@@ -2150,8 +2172,8 @@
           "columnIds": [
             "MTzusMWK2VdoUXFwfnEup"
           ],
-          "x": 531.3053,
-          "y": 961.6641999999999,
+          "x": 585.2528,
+          "y": 986.8223999999999,
           "direction": 1
         },
         "end": {
@@ -2243,8 +2265,8 @@
           "columnIds": [
             "kNnELSnHY1IgCasupDTSl"
           ],
-          "x": 555.6485,
-          "y": 1392.1544,
+          "x": 560.9116,
+          "y": 1405.3123,
           "direction": 1
         },
         "meta": {
@@ -2262,8 +2284,8 @@
           "columnIds": [
             "MTzusMWK2VdoUXFwfnEup"
           ],
-          "x": 735.3053,
-          "y": 1157.6642000000002,
+          "x": 789.2528,
+          "y": 1194.8224,
           "direction": 8
         },
         "end": {
@@ -2271,8 +2293,8 @@
           "columnIds": [
             "bt_lvm2zd0HBZstaEnFxx"
           ],
-          "x": 739.6485,
-          "y": 1328.1544,
+          "x": 744.9116,
+          "y": 1341.3123,
           "direction": 4
         },
         "meta": {
