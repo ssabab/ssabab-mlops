@@ -30,13 +30,5 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
 
 USER airflow
 
-COPY ../requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Python 패키지 설치
-# RUN pip install --no-cache-dir \
-#     apache-airflow-providers-apache-spark \
-#     apache-airflow-providers-apache-kafka \
-#     pyspark==3.5.4 \
-#     kafka-python \
-#     confluent-kafka

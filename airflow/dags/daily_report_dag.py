@@ -29,7 +29,7 @@ with DAG(
 
     dm_user_tag_preference = SparkSubmitOperator(
         task_id="create_dm_user_tag_preference",
-        application=f"{SPARK_PATH}/create_dm_user_tag_preference.py",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_tag_preference.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
         application_args=["2025-05-14"],
@@ -37,7 +37,7 @@ with DAG(
 
     dm_user_rating_top_bottom = SparkSubmitOperator(
         task_id="create_dm_user_rating_top_bottom",
-        application=f"{SPARK_PATH}/create_dm_user_rating_top_bottom.py",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_top_bottom.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
         application_args=["2025-05-14"],
@@ -45,7 +45,7 @@ with DAG(
 
     dm_user_rating_score = SparkSubmitOperator(
         task_id="create_dm_user_rating_score",
-        application=f"{SPARK_PATH}/create_dm_user_rating_score.py",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_score.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
         application_args=["2025-05-14"],

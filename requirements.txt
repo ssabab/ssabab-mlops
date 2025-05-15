@@ -22,7 +22,7 @@ psycopg2-binary==2.9.9
 # env
 python-dotenv==1.0.1
 
-# Pandas 
+# Python
 pandas==2.2.2
-
+numpy
 requests==2.31.0
