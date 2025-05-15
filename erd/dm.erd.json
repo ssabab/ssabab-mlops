@@ -200,7 +200,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1746687479989,
+          "updateAt": 1747276603604,
           "createAt": 1746683497255
         }
       },
@@ -266,15 +266,15 @@
           "4z_lHbWp0ev8bD03VVREi"
         ],
         "ui": {
-          "x": 997,
-          "y": 462,
+          "x": 999,
+          "y": 461,
           "zIndex": 13,
           "widthName": 116,
           "widthComment": 93,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747200670494,
+          "updateAt": 1747276968604,
           "createAt": 1747188554574
         }
       },
@@ -349,14 +349,14 @@
         ],
         "ui": {
           "x": 995,
-          "y": 81,
+          "y": 93,
           "zIndex": 123,
           "widthName": 131,
           "widthComment": 144,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747200665296,
+          "updateAt": 1747294352550,
           "createAt": 1747188931450
         }
       }
@@ -1246,19 +1246,19 @@
         "id": "EjbCT1Mq8vq-jzfueRxzX",
         "tableId": "l979n34GeRK1fWP0TLMGX",
         "name": "tag_json",
-        "comment": "{\"한식\", \"밥\", \"국\"}",
+        "comment": "[{\"category\": \"한식\", \"count\": 10} {\"tag\": \"밥\", \"count\": 7}, {\"tag\": \"국\", \"count\": 6}] 모든 태그와 카테고리 카운트 전부 다",
         "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 97,
+          "widthComment": 623,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747192386407,
+          "updateAt": 1747294377502,
           "createAt": 1747188966834
         }
       },
@@ -1465,60 +1465,60 @@
       "jJMyP3x7DTsX5id1lmvwe": {
         "id": "jJMyP3x7DTsX5id1lmvwe",
         "tableId": "TpwKX2hnuRee-6D7CByLG",
-        "name": "total_score",
-        "comment": "",
-        "dataType": "FLOAT",
+        "name": "total_iqr_json",
+        "comment": "{\"q1\": 1.5, \"q2\": 2.0, \"q3\": 2.5}",
+        "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 60,
-          "widthComment": 60,
+          "widthName": 72,
+          "widthComment": 154,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747198241951,
+          "updateAt": 1747293612819,
           "createAt": 1747197856855
         }
       },
       "Mm0AbUYctehkIVtiZccxH": {
         "id": "Mm0AbUYctehkIVtiZccxH",
         "tableId": "TpwKX2hnuRee-6D7CByLG",
-        "name": "ord_score",
-        "comment": "",
-        "dataType": "FLOAT",
+        "name": "ord_iqr_json",
+        "comment": "{\"ord_name\": 13, \"q1\": 1.5, \"q2\": 2.0, \"q3\": 2.5}",
+        "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 60,
-          "widthComment": 60,
+          "widthName": 66,
+          "widthComment": 241,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747198252766,
+          "updateAt": 1747293634922,
           "createAt": 1747197857151
         }
       },
       "KUJriaFI7ItkYjneHpm3j": {
         "id": "KUJriaFI7ItkYjneHpm3j",
         "tableId": "TpwKX2hnuRee-6D7CByLG",
-        "name": "gender_score",
-        "comment": "",
-        "dataType": "FLOAT",
+        "name": "gender_iqr_json",
+        "comment": "{\"gender\": True, \"q1\": 1.5, \"q2\": 2.0, \"q3\": 2.5}",
+        "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 73,
-          "widthComment": 60,
+          "widthName": 86,
+          "widthComment": 235,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747198257142,
+          "updateAt": 1747293651286,
           "createAt": 1747197857416
         }
       },

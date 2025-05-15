@@ -14,4 +14,6 @@ RUN install_packages \
     python3-dev \
     python3-pip
 
+RUN pip install --no-cache-dir numpy pandas pyarrow
+
 USER 1001
