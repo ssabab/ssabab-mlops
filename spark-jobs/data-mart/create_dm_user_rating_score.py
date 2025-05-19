@@ -23,8 +23,6 @@ schema = StructType([
     StructField("menu_date", DateType(), False),
 ])
 
-myRow=Row(10,100,datetime.strptime('2019-12-01','%Y-%m-%d'))
-
 mock_data = [
     (1, 13, 2000, False, 1, "김치찌개", "한식", "국", 4.0, datetime.strptime("2023-01-01","%Y-%m-%d")),
     (2, 13, 1999, True, 2, "파스타", "양식", "면", 3.0, datetime.strptime("2023-01-01","%Y-%m-%d")),

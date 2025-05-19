@@ -1,7 +1,11 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
+from airflow.operators.bash import BashOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.utils.task_group import TaskGroup
+
+from tasks.create_dw_task import *
 
 default_args = {
     "owner": "airflow",
@@ -15,20 +19,46 @@ with DAG(
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-    description="데이터 웨어하우스 생성 dag",
-    tags=["dw", "user", "daily"],
+    description="MySQL → raw → fact(SNAPSHOT) 기반 DW 적재 DAG",
+    tags=["dw", "snapshot", "raw", "fact"],
 ) as dag:
-    
+
     start = DummyOperator(task_id="start")
-    
-    # TODO: DW Task 구현
-    
-    # Trigger daily user report dag
-    dm_user = TriggerDagRunOperator(
-        task_id="trigger_daily_report_dag",
-        trigger_dag_id="daily_user_report_dag",
-        wait_for_completion=True
+
+    create_schema = create_tables_from_sql_files()
+
+    # TaskGroup 1: Extract MySQL → raw PostgreSQL tables
+    with TaskGroup("extract_raw_from_mysql", tooltip="MySQL 데이터를 raw PostgreSQL 테이블로 적재") as raw_group:
+        insert_raw_account()
+        insert_raw_food()
+        insert_raw_menu()
+        insert_raw_menu_food()
+        insert_raw_food_review()
+        insert_raw_menu_review()
+        insert_raw_pre_vote()
+        insert_raw_friend()
+
+    raw_done = BashOperator(
+        task_id="raw_insert_complete",
+        bash_command='echo "Raw 데이터 적재 완료"',
     )
 
-    start >> dm_user
-    
+    # TaskGroup 2: raw → fact with snapshot_date
+    with TaskGroup("transform_raw_to_fact", tooltip="raw 테이블로부터 fact 테이블 생성 및 snapshot 기록") as fact_group:
+        insert_fact_user_food_score_data()
+        insert_fact_user_menu_review_data()
+
+    fact_done = BashOperator(
+        task_id="fact_insert_complete",
+        bash_command='echo "Fact 테이블 적재 완료"',
+    )
+
+    # Trigger downstream DAG
+    trigger_report_dag = TriggerDagRunOperator(
+        task_id="trigger_daily_user_report",
+        trigger_dag_id="daily_user_dm_report_dag",
+        wait_for_completion=True,
+    )
+
+    # Task dependency
+    start >> create_schema >> raw_group >> raw_done >> fact_group >> fact_done >> trigger_report_dag
