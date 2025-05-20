@@ -43,54 +43,6 @@ def create_tables_from_sql_files():
                             cur.execute(sql)
         conn.commit()
 
-@task
-def insert_raw_account():
-    query = """SELECT id, gender, birth_year, ord_num, class, provider FROM account"""
-    column_order = ["id", "gender", "birth_year", "ord_num", "class", "provider"]
-    fetch_and_insert(query, "raw_account", column_order)
-
-@task
-def insert_raw_food():
-    query = """SELECT food_id, food_name, main_sub, category, tag FROM food"""
-    column_order = ["food_id", "food_name", "main_sub", "category", "tag"]
-    fetch_and_insert(query, "raw_food", column_order)
-
-@task
-def insert_raw_menu():
-    query = """SELECT menu_id, date FROM menu"""
-    column_order = ["menu_id", "date"]
-    fetch_and_insert(query, "raw_menu", column_order)
-
-@task
-def insert_raw_menu_food():
-    query = """SELECT menu_id, food_id FROM menu_food"""
-    column_order = ["menu_id", "food_id"]
-    fetch_and_insert(query, "raw_menu_food", column_order)
-
-@task
-def insert_raw_food_review():
-    query = """SELECT id, user_id, food_id, food_score, create_at FROM food_review"""
-    column_order = ["id", "user_id", "food_id", "food_score", "create_at"]
-    fetch_and_insert(query, "raw_food_review", column_order)
-
-@task
-def insert_raw_menu_review():
-    query = """SELECT id, user_id, menu_id, menu_comment, timestamp FROM menu_review"""
-    column_order = ["id", "user_id", "menu_id", "menu_comment", "timestamp"]
-    fetch_and_insert(query, "raw_menu_review", column_order)
-
-@task
-def insert_raw_pre_vote():
-    query = """SELECT user_id, menu_id, food_id FROM pre_vote"""
-    column_order = ["user_id", "menu_id", "food_id"]
-    fetch_and_insert(query, "raw_pre_vote", column_order)
-
-@task
-def insert_raw_friend():
-    query = """SELECT user_id, friend_user_id FROM friend"""
-    column_order = ["user_id", "friend_user_id"]
-    fetch_and_insert(query, "raw_friend", column_order)
-
 
 @task
 def insert_fact_user_food_score_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
@@ -108,6 +60,7 @@ def insert_fact_user_food_score_data(target_date: str = datetime.today().strftim
     """
     column_order = ["user_id", "food_id", "menu_id", "date_id", "food_score", "has_review", "rating_source", "snapshot_date"]
     fetch_and_insert(query, "fact_user_food_score", column_order, params=[target_date])
+
 
 @task
 def insert_fact_user_menu_review_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
