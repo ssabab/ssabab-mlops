@@ -11,10 +11,10 @@ SQL_PATH = os.getenv("SQL_PATH")
 
 
 def fetch_and_insert(query, target_table, column_order, params=None):
-    with get_mysql_connection() as mysql_conn, get_postgres_connection() as pg_conn:
-        df = pd.read_sql(query, mysql_conn, params=params)
+    with get_mysql_connection() as conn:
+        df = pd.read_sql(query, conn, params=params)
 
-        with pg_conn.cursor() as cur:
+        with conn.cursor() as cur:
             for _, row in df.iterrows():
                 values = tuple(row[col] for col in column_order)
                 placeholders = ', '.join(['%s'] * len(values))
@@ -25,7 +25,7 @@ def fetch_and_insert(query, target_table, column_order, params=None):
                     ON CONFLICT DO NOTHING;
                 """, values)
 
-        pg_conn.commit()
+        conn.commit()
 
 
 @task
@@ -45,30 +45,42 @@ def create_tables_from_sql_files():
 
 
 @task
-def insert_fact_user_food_score_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_dim_food_data():
     query = """
-        SELECT user_id, food_id, menu_id,
-               TO_CHAR(date, 'YYYYMMDD')::INT AS date_id,
-               food_score,
-               TRUE AS has_review,
-               'user_rating' AS rating_source,
-               CURRENT_DATE AS snapshot_date
-        FROM raw_food_review
-        JOIN raw_menu_food USING (food_id)
-        JOIN raw_menu USING (menu_id)
-        WHERE DATE(create_at) = %s
+        SELECT food_id, food_name, category, tag
+        FROM food
     """
-    column_order = ["user_id", "food_id", "menu_id", "date_id", "food_score", "has_review", "rating_source", "snapshot_date"]
-    fetch_and_insert(query, "fact_user_food_score", column_order, params=[target_date])
+    column_order = ["food_id", "food_name", "category", "tag"]
+    fetch_and_insert(query, "dim_food", column_order, is_dim=True)
 
 
 @task
-def insert_fact_user_menu_review_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_dim_user_group_data():
     query = """
-        SELECT id AS review_id, user_id, menu_id, menu_comment, timestamp,
-               CURRENT_DATE AS snapshot_date
-        FROM raw_menu_review
-        WHERE DATE(timestamp) = %s
+        SELECT group_id, user_id, ord_num, class
+        FROM account
     """
-    column_order = ["review_id", "user_id", "menu_id", "menu_comment", "timestamp", "snapshot_date"]
-    fetch_and_insert(query, "fact_user_menu_review", column_order, params=[target_date])
+    column_order = ["group_id", "user_id", "ord_num", "class"]
+    fetch_and_insert(query, "dim_user_group", column_order, is_dim=True)
+
+
+@task
+def insert_dim_user_data():
+    query = """
+        SELECT user_id, birth_year, gender
+        FROM account
+    """
+    column_order = ["user_id", "birth_year", "gender"]
+    fetch_and_insert(query, "dim_user", column_order, is_dim=True)
+
+
+@task
+def insert_fact_user_ratings_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+    query = """
+        SELECT user_id, group_id, food_id, rating, created_date, updated_date
+        FROM raw_user_ratings_data 
+        WHERE DATE(created_date) = %s
+    """
+    column_order = ["user_id", "group_id", "food_id", "rating", "created_date", "updated_date"]
+    fetch_and_insert(query, "fact_user_ratings", column_order, params=[target_date])
+    
