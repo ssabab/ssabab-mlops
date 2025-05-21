@@ -4,6 +4,7 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType, 
 from datetime import datetime
 import sys
 import os
+from utils.db import *
 from common.env_loader import load_env
 from pyspark.sql.window import Window
 
@@ -14,18 +15,6 @@ def create_spark_session():
         .appName("Food Ranking Monthly") \
         .config("spark.driver.extraClassPath", "/opt/spark/jars/postgresql-42.7.2.jar") \
         .getOrCreate()
-
-def get_db_connection():
-    import psycopg2
-    from psycopg2.extras import RealDictCursor
-    return psycopg2.connect(
-        dbname=os.getenv('POSTGRES_DB'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('POSTGRES_PASSWORD'),
-        host=os.getenv('POSTGRES_HOST'),
-        port=os.getenv('POSTGRES_PORT'),
-        cursor_factory=RealDictCursor
-    )
 
 def main():
     # 커맨드 라인 인자로부터 월 받기
@@ -43,7 +32,7 @@ def main():
     spark = create_spark_session()
 
     # PostgreSQL에서 데이터 읽기
-    with get_db_connection() as conn:
+    with get_postgres_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("""
                 SELECT fr.*, f.food_name 
@@ -90,7 +79,7 @@ def main():
     best_results = best_ranked_df.collect()
     worst_results = worst_ranked_df.collect()
 
-    with get_db_connection() as conn:
+    with get_postgres_connection() as conn:
         with conn.cursor() as cur:
             # 상위 5개 저장
             for row in best_results:
