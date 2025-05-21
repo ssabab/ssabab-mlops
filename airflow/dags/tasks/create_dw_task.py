@@ -10,7 +10,7 @@ load_env()
 SQL_PATH = os.getenv("SQL_PATH")
 
 
-def fetch_and_insert(query, target_table, column_order, params=None):
+def fetch_and_insert(query, target_table, column_order, params=None, is_dim=False):
     with get_mysql_connection() as conn:
         df = pd.read_sql(query, conn, params=params)
 
@@ -19,18 +19,25 @@ def fetch_and_insert(query, target_table, column_order, params=None):
                 values = tuple(row[col] for col in column_order)
                 placeholders = ', '.join(['%s'] * len(values))
                 columns = ', '.join(column_order)
-                cur.execute(f"""
-                    INSERT INTO {target_table} ({columns})
-                    VALUES ({placeholders})
-                    ON CONFLICT DO NOTHING;
-                """, values)
+                
+                if is_dim:
+                    cur.execute(f"""
+                        INSERT INTO {target_table} ({columns})
+                        VALUES ({placeholders})
+                        ON CONFLICT DO NOTHING;
+                    """, values)
+                else:
+                    cur.execute(f"""
+                        INSERT INTO {target_table} ({columns})
+                        VALUES ({placeholders})
+                    """, values)
 
         conn.commit()
 
 
 @task
 def create_tables_from_sql_files():
-    with get_postgres_connection() as conn:
+    with get_mysql_connection() as conn:
         with conn.cursor() as cur:
             for subfolder in os.listdir(SQL_PATH):
                 folder_path = os.path.join(SQL_PATH, subfolder)
