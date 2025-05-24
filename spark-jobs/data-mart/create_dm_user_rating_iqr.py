@@ -9,7 +9,7 @@ from common.env_loader import load_env
 
 load_env()
 
-mysql_url = f"jdbc:mysql://{os.getenv("MYSQL_HOST")}:3306/{os.getenv("MYSQL_DATABASE")}"
+mysql_url = f"jdbc:mysql://{os.getenv('MYSQL_HOST')}:3306/{os.getenv('MYSQL_DATABASE')}"
 mysql_properties = {
     "user": os.getenv("MYSQL_USER"),
     "password": os.getenv("MYSQL_PASSWORD"),
