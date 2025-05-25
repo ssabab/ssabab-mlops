@@ -28,8 +28,8 @@ with DAG(
     start = DummyOperator(task_id="start")
 
     dm_user_tag_preference = SparkSubmitOperator(
-        task_id="create_dm_user_tag_preference",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_tag_preference.py",
+        task_id="create_dm_user_category_tag_preference",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_category_tag_preference.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
         application_args=["2025-05-14"],
