@@ -1,21 +1,16 @@
-import os
 from pyspark.sql import SparkSession, Window
 from pyspark.sql.types import *
 from pyspark.sql.functions import col, row_number, asc, desc, first
-from common.env_loader import load_env
+from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
-load_env()
-
-mysql_url = f"jdbc:mysql://{os.getenv('MYSQL_HOST')}:3306/{os.getenv('MYSQL_DATABASE')}"
-mysql_properties = {
-    "user": os.getenv("MYSQL_USER"),
-    "password": os.getenv("MYSQL_PASSWORD"),
-    "driver": "com.mysql.cj.jdbc.Driver"
-}
 
 spark = SparkSession.builder \
     .appName("create_dm_user_rating_top_bottom") \
     .getOrCreate()
+
+
+mysql_url = get_mysql_jdbc_url()
+mysql_properties = get_mysql_jdbc_properties()
 
 fact_df = spark.read.jdbc(
     url=mysql_url, 

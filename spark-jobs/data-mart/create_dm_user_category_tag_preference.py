@@ -1,23 +1,15 @@
-import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, collect_list, struct, to_json
 from pyspark.sql.types import *
-from common.env_loader import load_env
-
-load_env()
-
-mysql_url = f"jdbc:mysql://{os.getenv('MYSQL_HOST')}:3306/{os.getenv('MYSQL_DATABASE')}"
-mysql_properties = {
-    "user": os.getenv("MYSQL_USER"),
-    "password": os.getenv("MYSQL_PASSWORD"),
-    "driver": "com.mysql.cj.jdbc.Driver"
-}
+from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
 
 spark = SparkSession.builder \
     .appName("create_dm_user_category_tag_preference") \
     .getOrCreate()
 
+mysql_url = get_mysql_jdbc_url()
+mysql_properties = get_mysql_jdbc_properties()
 
 dim_user_df = spark.read.jdbc(
     url=mysql_url,
