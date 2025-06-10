@@ -1,26 +1,27 @@
 import os
 import pymysql
-import psycopg2
-from psycopg2.extras import RealDictCursor
 from common.env_loader import load_env
 
 load_env()
 
-def get_postgres_connection():
-    return psycopg2.connect(
-        dbname=os.getenv('POSTGRES_DB'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('POSTGRES_PASSWORD'),
-        host=os.getenv('POSTGRES_HOST'),
-        port=os.getenv('POSTGRES_PORT'),
-        cursor_factory=RealDictCursor
-    )
-
 def get_mysql_connection():
     return pymysql.connect(
-        host=os.getenv('MYSQL_HOST'),
-        user=os.getenv('MYSQL_USER'),
-        password=os.getenv('MYSQL_PASSWORD'),
-        database=os.getenv('MYSQL_DATABASE'),
-        port=3306
+        host=os.getenv("MYSQL_HOST"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        database=os.getenv("MYSQL_DATABASE"),
+        port=os.getenv("MYSQL_PORT", "3306")
     )
+
+def get_mysql_jdbc_url():
+    host = os.getenv("MYSQL_HOST")
+    port = os.getenv("MYSQL_PORT", "3306")
+    database = os.getenv("MYSQL_DATABASE")
+    return f"jdbc:mysql://{host}:{port}/{database}?useSSL=false&serverTimezone=UTC"
+
+def get_mysql_jdbc_properties():
+    return {
+        "user": os.getenv("MYSQL_USER"),
+        "password": os.getenv("MYSQL_PASSWORD"),
+        "driver": "com.mysql.cj.jdbc.Driver"
+    }
