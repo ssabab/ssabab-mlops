@@ -1,126 +1,56 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, concat, lit, avg, row_number
-from pyspark.sql.types import StructType, StructField, IntegerType, StringType, TimestampType, BooleanType
-from datetime import datetime
+from pyspark.sql import SparkSession, Window
+from pyspark.sql.functions import col, avg, row_number, lit
+from pyspark.sql.types import *
 import sys
-import os
-from utils.db import *
-from common.env_loader import load_env
-from pyspark.sql.window import Window
-
-load_env()
-
-def create_spark_session():
-    return SparkSession.builder \
-        .appName("Food Ranking Monthly") \
-        .config("spark.driver.extraClassPath", "/opt/spark/jars/postgresql-42.7.2.jar") \
-        .getOrCreate()
+from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
 def main():
-    # 커맨드 라인 인자로부터 월 받기
     if len(sys.argv) != 2:
-        print("Usage: create_dm_food_ranking.py <month>")
+        print("Usage: create_dm_monthly_food_ranking.py <YYYY-MM>")
         sys.exit(1)
-    
-    target_month = int(sys.argv[1])
-    if not 1 <= target_month <= 12:
-        print("Error: Month must be between 1 and 12")
-        sys.exit(1)
-    
-    print(f"[INFO] Fetching data for month {target_month}")
+    target_month = sys.argv[1]
 
-    spark = create_spark_session()
+    spark = SparkSession.builder.appName("Monthly Food Ranking").getOrCreate()
+    mysql_url = get_mysql_jdbc_url()
+    mysql_props = get_mysql_jdbc_properties()
 
-    # PostgreSQL에서 데이터 읽기
-    with get_postgres_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("""
-                SELECT fr.*, f.food_name 
-                FROM food_review fr
-                JOIN food f ON fr.food_id = f.food_id
-                WHERE EXTRACT(MONTH FROM fr.create_at) = %s
-            """, (target_month,))
-            food_reviews = cur.fetchall()
-    
-    # 스키마 정의
-    food_review_schema = StructType([
-        StructField("id", IntegerType(), False),
-        StructField("user_id", IntegerType(), False),
-        StructField("food_id", IntegerType(), False),
-        StructField("food_score", IntegerType(), False),
-        StructField("create_at", TimestampType(), False),
-        StructField("food_name", StringType(), False)
-    ])
-    
-    food_review_df = spark.createDataFrame(food_reviews, schema=food_review_schema)
-    
-    # 평균 점수 계산
-    avg_scores_df = food_review_df.groupBy("food_id", "food_name") \
+    food_review_df = spark.read.jdbc(
+        url=mysql_url,
+        table="food_review",
+        properties=mysql_props
+    ).filter(col("create_at").substr(1, 7) == target_month)
+
+    food_df = spark.read.jdbc(
+        url=mysql_url,
+        table="food",
+        properties=mysql_props
+    )
+
+    df = food_review_df.join(food_df, "food_id") \
+        .select("food_id", "food_name", "food_score", "create_at")
+
+    avg_score_df = df.groupBy("food_id", "food_name") \
         .agg(avg("food_score").alias("avg_score"))
-    
-    # 전체 음식 수 확인
-    total_foods = avg_scores_df.count()
-    if total_foods < 10:
-        print(f"Error: Not enough foods (total: {total_foods}, required: 10)")
-        sys.exit(1)
-    
-    # 상위 5개 순위 계산
-    best_ranked_df = avg_scores_df.orderBy(col("avg_score").desc()).limit(5)
-    best_ranked_df = best_ranked_df.withColumn("rank", row_number().over(
-        Window.orderBy(col("avg_score").desc())
-    ))
-    
-    # 하위 5개 순위 계산
-    worst_ranked_df = avg_scores_df.orderBy(col("avg_score").asc()).limit(5)
-    worst_ranked_df = worst_ranked_df.withColumn("rank", row_number().over(
-        Window.orderBy(col("avg_score").asc())
-    ))
-    
-    best_results = best_ranked_df.collect()
-    worst_results = worst_ranked_df.collect()
 
-    with get_postgres_connection() as conn:
-        with conn.cursor() as cur:
-            # 상위 5개 저장
-            for row in best_results:
-                cur.execute("""
-                    INSERT INTO dm_food_ranking_monthly 
-                    (month, food_id, food_name, avg_score, rank_type, rank)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (month, food_id, rank_type) 
-                    DO UPDATE SET 
-                        food_name = EXCLUDED.food_name,
-                        avg_score = EXCLUDED.avg_score,
-                        rank = EXCLUDED.rank
-                """, (
-                    target_month,
-                    row['food_id'],
-                    row['food_name'],
-                    float(row['avg_score']),
-                    'best',
-                    row['rank']
-                ))
-            
-            # 하위 5개 저장
-            for row in worst_results:
-                cur.execute("""
-                    INSERT INTO dm_food_ranking_monthly 
-                    (month, food_id, food_name, avg_score, rank_type, rank)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (month, food_id, rank_type) 
-                    DO UPDATE SET 
-                        food_name = EXCLUDED.food_name,
-                        avg_score = EXCLUDED.avg_score,
-                        rank = EXCLUDED.rank
-                """, (
-                    target_month,
-                    row['food_id'],
-                    row['food_name'],
-                    float(row['avg_score']),
-                    'worst',
-                    row['rank']
-                ))
-            conn.commit()
+    window_best = Window.orderBy(col("avg_score").desc())
+    window_worst = Window.orderBy(col("avg_score").asc())
+
+    best_df = avg_score_df.withColumn("rank", row_number().over(window_best)) \
+        .filter(col("rank") <= 5) \
+        .withColumn("rank_type", lit("best"))
+
+    worst_df = avg_score_df.withColumn("rank", row_number().over(window_worst)) \
+        .filter(col("rank") <= 5) \
+        .withColumn("rank_type", lit("worst"))
+
+    result_df = best_df.unionByName(worst_df)
+
+    result_df.write.jdbc(
+        url=mysql_url,
+        table="dm_monthly_food_ranking",
+        mode="overwrite",
+        properties=mysql_props
+    )
 
 if __name__ == "__main__":
     main()

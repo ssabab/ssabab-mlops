@@ -23,14 +23,14 @@ def get_previous_month():
     # 현재 날짜의 전월을 계산
     today = datetime.now()
     if today.month == 1:
-        return 12  # 1월이면 전년 12월
-    return today.month - 1
+        return f"{today.year-1}-12"  # 1월이면 전년 12월
+    return f"{today.year}-{today.month-1:02d}"
 
 with DAG(
     'monthly_total_report_dag',
     default_args=default_args,
-    description='Monthly total report ETL pipeline for class engagement and food ranking',
-    schedule_interval='0 0 9 * *',  # 매월 1일 00:00에 실행
+    description='Monthly total report ETL pipeline for food ranking, visitors and vote count',
+    schedule_interval='0 0 1 * *',  # 매월 1일 00:00에 실행
     start_date=days_ago(1),
     catchup=False,
     tags=['dw', 'dm', 'monthly', 'total_report'],
@@ -39,26 +39,32 @@ with DAG(
     start = DummyOperator(task_id="start")
     
     # Spark 작업 정의
-    class_engagement_job = SparkSubmitOperator(
-        task_id='class_engagement_monthly',
-        application=f"{SPARK_PATH}/data-mart/create_dm_class_engagement.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        # application_args=[str(get_previous_month())],  # 전월을 파라미터로 전달
-        application_args=["5"],  # for test
-    )
-
     food_ranking_job = SparkSubmitOperator(
         task_id='food_ranking_monthly',
-        application=f"{SPARK_PATH}/data-mart/create_dm_food_ranking.py",
+        application=f"{SPARK_PATH}/data-mart/create_dm_monthly_food_ranking.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        # application_args=[str(get_previous_month())],  # 전월을 파라미터로 전달
-        application_args=["5"],  # for test
+        application_args=[get_previous_month()],
+    )
+
+    visitors_job = SparkSubmitOperator(
+        task_id='visitors_monthly',
+        application=f"{SPARK_PATH}/data-mart/create_dm_monthly_visitors.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        application_args=[get_previous_month()],
+    )
+
+    vote_count_job = SparkSubmitOperator(
+        task_id='vote_count_monthly',
+        application=f"{SPARK_PATH}/data-mart/create_dm_monthly_vote_count.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        application_args=[get_previous_month()],
     )
     
     # 종료 태스크
     end = DummyOperator(task_id="end")
 
     # 작업 의존성 설정
-    start >> [class_engagement_job, food_ranking_job] >> end 
+    start >> [food_ranking_job, visitors_job, vote_count_job] >> end 

@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -47.1667,
-    "scrollLeft": -219,
-    "zoomLevel": 0.94,
+    "scrollTop": -153.8115,
+    "scrollLeft": -467.5302,
+    "zoomLevel": 0.79,
     "show": 431,
     "database": 16,
     "databaseName": "",
@@ -147,7 +147,6 @@
         "name": "dm_monthly_vote_count",
         "comment": "기수, 반, 성별, 나이 분포",
         "columnIds": [
-          "8E2adrVgSXlOsOvRTIwJb",
           "uCz-ic6AoDQ3_N3Eg0-JA",
           "Sx1F1ZaUqY1A9PLN9-iBW",
           "E4_3fkMeOCpVDANqyEnxh",
@@ -173,7 +172,7 @@
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1749537837895,
+          "updateAt": 1749543641646,
           "createAt": 1746683497255
         }
       },
@@ -182,7 +181,6 @@
         "name": "dm_monthly_food_ranking",
         "comment": "월간 최고/최저 평점 음식 top5",
         "columnIds": [
-          "k2_-6gZZwVSbhqeqgklhi",
           "J56-eSRyemB3yQNEdOGYT",
           "rdFnc7tUrZH43U_2_A3M2",
           "rLKUNvJIddwMRZXKUAdbS",
@@ -198,15 +196,15 @@
           "kwVn6aR_LMjztWpQ5LTsv"
         ],
         "ui": {
-          "x": 508.9362,
-          "y": 266.3831,
+          "x": 512.7336,
+          "y": 254.9912,
           "zIndex": 2,
           "widthName": 143,
           "widthComment": 164,
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1749537841110,
+          "updateAt": 1749546227006,
           "createAt": 1746683497255
         }
       },
@@ -272,15 +270,15 @@
           "4z_lHbWp0ev8bD03VVREi"
         ],
         "ui": {
-          "x": 999,
-          "y": 461,
+          "x": 963.5569,
+          "y": 340.7468,
           "zIndex": 13,
           "widthName": 116,
           "widthComment": 93,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747276968604,
+          "updateAt": 1749543879467,
           "createAt": 1747188554574
         }
       },
@@ -304,15 +302,15 @@
           "1lZTd3VAuHz6KERzRtYQq"
         ],
         "ui": {
-          "x": 997,
-          "y": 266,
+          "x": 961.557,
+          "y": 182.4557,
           "zIndex": 121,
           "widthName": 151,
           "widthComment": 176,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747200669118,
+          "updateAt": 1749543877882,
           "createAt": 1747188929610
         }
       },
@@ -331,15 +329,15 @@
           "eLKcbI0JxLEpNezarZi_V"
         ],
         "ui": {
-          "x": 995,
-          "y": 93,
+          "x": 958.2911,
+          "y": 46.1646,
           "zIndex": 123,
           "widthName": 131,
           "widthComment": 144,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747294352550,
+          "updateAt": 1749543875743,
           "createAt": 1747188931450
         }
       },
@@ -348,7 +346,6 @@
         "name": "dm_monthly_visitors",
         "comment": "월간 방문자 수",
         "columnIds": [
-          "eHhZdLkqF-4xeAhJjWDoD",
           "0EMWZDvlIFZVgdSSQx617"
         ],
         "seqColumnIds": [
@@ -356,15 +353,15 @@
           "0EMWZDvlIFZVgdSSQx617"
         ],
         "ui": {
-          "x": 509.7577,
-          "y": 491.6668,
+          "x": 512.2894,
+          "y": 467.6167,
           "zIndex": 172,
           "widthName": 110,
           "widthComment": 81,
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1749537868516,
+          "updateAt": 1749546229128,
           "createAt": 1749537786200
         }
       }
