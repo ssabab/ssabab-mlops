@@ -238,25 +238,25 @@ services:
       - ./utils:/opt/airflow/utils
       - .env:/opt/.env
 
-  kafka:
-    container_name: kafka
-    image: bitnami/kafka:latest
-    ports:
-      - "9092:9092"
-    environment:
-      - KAFKA_CFG_PROCESS_ROLES=broker,controller
-      - KAFKA_CFG_NODE_ID=${KAFKA_NODE_ID}
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:${KAFKA_BROKER_PORT},CONTROLLER://:${KAFKA_CONTROLLER_PORT}
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:${KAFKA_BROKER_PORT}
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=${KAFKA_NODE_ID}@kafka:${KAFKA_CONTROLLER_PORT}
-      - KAFKA_KRAFT_CLUSTER_ID=${KAFKA_CLUSTER_ID}
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    volumes:
-      - kafka_data:/bitnami/kafka
-    networks:
-      - ssabab
+  # kafka:
+  #   container_name: ssabab-kafka
+  #   image: bitnami/kafka:latest
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     - KAFKA_CFG_PROCESS_ROLES=broker,controller
+  #     - KAFKA_CFG_NODE_ID=${KAFKA_NODE_ID}
+  #     - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:${KAFKA_BROKER_PORT},CONTROLLER://:${KAFKA_CONTROLLER_PORT}
+  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:${KAFKA_BROKER_PORT}
+  #     - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+  #     - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=${KAFKA_NODE_ID}@kafka:${KAFKA_CONTROLLER_PORT}
+  #     - KAFKA_KRAFT_CLUSTER_ID=${KAFKA_CLUSTER_ID}
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   volumes:
+  #     - kafka_data:/bitnami/kafka
+  #   networks:
+  #     - ssabab
 
 volumes:
   postgres-db-volume:

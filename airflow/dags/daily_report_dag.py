@@ -21,7 +21,7 @@ with DAG(
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-    description="매일 자정 사용자 분석용 데이터 마트 생성 dag",
+    description="매일 자정 사용자 분석용 데이터 마트 생성 DAG",
     tags=["dm", "user", "daily"],
 ) as dag:
 

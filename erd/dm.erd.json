@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -40.3333,
-    "scrollLeft": -411,
+    "scrollTop": -195,
+    "scrollLeft": -680,
     "zoomLevel": 0.94,
     "show": 431,
     "database": 16,
@@ -39,7 +39,8 @@
       "1Hi6lPz_Te6g0uWu37BjN",
       "TpwKX2hnuRee-6D7CByLG",
       "f2nWdhEXXlyqQLVvqVWc2",
-      "l979n34GeRK1fWP0TLMGX"
+      "l979n34GeRK1fWP0TLMGX",
+      "aogbJ4pWl2x6dcuzS4Efk"
     ],
     "relationshipIds": [],
     "indexIds": [],
@@ -243,14 +244,11 @@
       },
       "TpwKX2hnuRee-6D7CByLG": {
         "id": "TpwKX2hnuRee-6D7CByLG",
-        "name": "dm_user_rating_score",
+        "name": "dm_user_rating",
         "comment": "사용자 평점 비교",
         "columnIds": [
           "u-6It5nkloZc9FQlakJ4Y",
-          "08kScb3S0vXsXjC0N7lQi",
-          "jJMyP3x7DTsX5id1lmvwe",
-          "Mm0AbUYctehkIVtiZccxH",
-          "KUJriaFI7ItkYjneHpm3j"
+          "08kScb3S0vXsXjC0N7lQi"
         ],
         "seqColumnIds": [
           "vQAZVUq3I97a8-E6wyAx_",
@@ -266,39 +264,16 @@
           "4z_lHbWp0ev8bD03VVREi"
         ],
         "ui": {
-          "x": 999,
-          "y": 461,
+          "x": 994.7449,
+          "y": 806.7448,
           "zIndex": 13,
-          "widthName": 116,
+          "widthName": 83,
           "widthComment": 93,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747276968604,
+          "updateAt": 1749536783902,
           "createAt": 1747188554574
-        }
-      },
-      "ziuC6q5Bsoox9osroZJEG": {
-        "id": "ziuC6q5Bsoox9osroZJEG",
-        "name": "",
-        "comment": "",
-        "columnIds": [
-          "DiuAoI9Rr4M3KBtB2bZi7"
-        ],
-        "seqColumnIds": [
-          "DiuAoI9Rr4M3KBtB2bZi7"
-        ],
-        "ui": {
-          "x": 592,
-          "y": 683,
-          "zIndex": 41,
-          "widthName": 60,
-          "widthComment": 60,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1747188662579,
-          "createAt": 1747188657683
         }
       },
       "f2nWdhEXXlyqQLVvqVWc2": {
@@ -307,8 +282,24 @@
         "comment": "사용자 최고/최저 평점 음식 top5",
         "columnIds": [
           "FLO4uNWDn0u8OfNDj3tTV",
-          "hko5tprc0JKN1aTXQFqNH",
-          "A8N87r_YoIlXgWJUbdo8e"
+          "q9S1sKwySwLhkwizzBz2C",
+          "hurN2XpNN-iDEpWKn5cKF",
+          "yU7X1zNERnDly7b-UoP8x",
+          "2uPUdiQo0EVw0P8gKZ5t0",
+          "YyPSfk48GtOFWaEJ9lUZx",
+          "tdHD9-JkbkBEFQL40JNsY",
+          "-OdNJSnQKyfKGTYYgGVVM",
+          "mbxv27G1RnGWFuoVly8U5",
+          "xGG5IIGbs3g23FLcQC87-",
+          "iKMQDKo6Qfv4tvOpyBOop",
+          "cT8S-dHYkP5s4Zlc8eZbq",
+          "BfAspt-8jGLNcLa42TSkt",
+          "3Usrp2XUuInsaykiLKVxA",
+          "xBuqIvOAy7RY3OBURR22Q",
+          "ebeHYirjNXgTiAckU47RP",
+          "tRiz87wvMXVKhwjoxEPOE",
+          "oPvGxUOr8q-ipF6531VWs",
+          "OTo7DNzYTvZ5V6OyAw2xY"
         ],
         "seqColumnIds": [
           "l9VUyhduLEgRi59el6vVM",
@@ -318,46 +309,95 @@
           "7kXYxnr5GFzOMpFgHi_ih",
           "hko5tprc0JKN1aTXQFqNH",
           "A8N87r_YoIlXgWJUbdo8e",
-          "1lZTd3VAuHz6KERzRtYQq"
+          "1lZTd3VAuHz6KERzRtYQq",
+          "q9S1sKwySwLhkwizzBz2C",
+          "hurN2XpNN-iDEpWKn5cKF",
+          "yU7X1zNERnDly7b-UoP8x",
+          "2uPUdiQo0EVw0P8gKZ5t0",
+          "YyPSfk48GtOFWaEJ9lUZx",
+          "tdHD9-JkbkBEFQL40JNsY",
+          "-OdNJSnQKyfKGTYYgGVVM",
+          "mbxv27G1RnGWFuoVly8U5",
+          "xGG5IIGbs3g23FLcQC87-",
+          "iKMQDKo6Qfv4tvOpyBOop",
+          "cT8S-dHYkP5s4Zlc8eZbq",
+          "BfAspt-8jGLNcLa42TSkt",
+          "3Usrp2XUuInsaykiLKVxA",
+          "xBuqIvOAy7RY3OBURR22Q",
+          "ebeHYirjNXgTiAckU47RP",
+          "tRiz87wvMXVKhwjoxEPOE",
+          "oPvGxUOr8q-ipF6531VWs",
+          "OTo7DNzYTvZ5V6OyAw2xY"
         ],
         "ui": {
-          "x": 997,
-          "y": 266,
+          "x": 994.8722,
+          "y": 258.5532,
           "zIndex": 121,
           "widthName": 151,
           "widthComment": 176,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747200669118,
+          "updateAt": 1749536755373,
           "createAt": 1747188929610
         }
       },
       "l979n34GeRK1fWP0TLMGX": {
         "id": "l979n34GeRK1fWP0TLMGX",
-        "name": "dm_user_tag_preference",
-        "comment": "태그별 사용자 선호도 분석",
+        "name": "dm_user_category_tag_preference",
+        "comment": "태그 및 카테고리별 사용자 선호도 분석",
         "columnIds": [
           "v94jewY0ftldO67NvzR5v",
-          "EjbCT1Mq8vq-jzfueRxzX"
+          "EjbCT1Mq8vq-jzfueRxzX",
+          "zLuMj2b4U9iH453W9PRBS"
         ],
         "seqColumnIds": [
           "v94jewY0ftldO67NvzR5v",
           "EjbCT1Mq8vq-jzfueRxzX",
           "iH-OO8nBj60iwLgYF1tJO",
-          "eLKcbI0JxLEpNezarZi_V"
+          "eLKcbI0JxLEpNezarZi_V",
+          "zLuMj2b4U9iH453W9PRBS"
         ],
         "ui": {
-          "x": 995,
-          "y": 93,
+          "x": 990.7446,
+          "y": 91.9362,
           "zIndex": 123,
-          "widthName": 131,
-          "widthComment": 144,
+          "widthName": 182,
+          "widthComment": 210,
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1747294352550,
+          "updateAt": 1749536591506,
           "createAt": 1747188931450
+        }
+      },
+      "aogbJ4pWl2x6dcuzS4Efk": {
+        "id": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "dm_iqrs",
+        "comment": "전체, 기수, 성별에 따른 사분위",
+        "columnIds": [
+          "hIH_pTTAzpP3BlzUdKLaj",
+          "PuLYWMNRPyMZyGItshqxx",
+          "u3gX7j66c2obx18PWUWge",
+          "dWb7Bsuz-sqhcrlpCYnPR"
+        ],
+        "seqColumnIds": [
+          "hIH_pTTAzpP3BlzUdKLaj",
+          "PuLYWMNRPyMZyGItshqxx",
+          "u3gX7j66c2obx18PWUWge",
+          "dWb7Bsuz-sqhcrlpCYnPR"
+        ],
+        "ui": {
+          "x": 994.1434,
+          "y": 938.3034,
+          "zIndex": 126,
+          "widthName": 60,
+          "widthComment": 164,
+          "color": "#795548"
+        },
+        "meta": {
+          "updateAt": 1749536787002,
+          "createAt": 1749536425615
         }
       }
     },
@@ -1082,26 +1122,6 @@
           "createAt": 1747188564780
         }
       },
-      "DiuAoI9Rr4M3KBtB2bZi7": {
-        "id": "DiuAoI9Rr4M3KBtB2bZi7",
-        "tableId": "ziuC6q5Bsoox9osroZJEG",
-        "name": "",
-        "comment": "",
-        "dataType": "",
-        "default": "",
-        "options": 0,
-        "ui": {
-          "keys": 0,
-          "widthName": 60,
-          "widthComment": 60,
-          "widthDataType": 60,
-          "widthDefault": 60
-        },
-        "meta": {
-          "updateAt": 1747188662579,
-          "createAt": 1747188662579
-        }
-      },
       "8y-idCeyu4KKIzBd5QFk1": {
         "id": "8y-idCeyu4KKIzBd5QFk1",
         "tableId": "TpwKX2hnuRee-6D7CByLG",
@@ -1246,19 +1266,19 @@
         "id": "EjbCT1Mq8vq-jzfueRxzX",
         "tableId": "l979n34GeRK1fWP0TLMGX",
         "name": "tag_json",
-        "comment": "[{\"category\": \"한식\", \"count\": 10} {\"tag\": \"밥\", \"count\": 7}, {\"tag\": \"국\", \"count\": 6}] 모든 태그와 카테고리 카운트 전부 다",
+        "comment": "[{\"category\": \"한식\", \"count\": 12}, {\"category\": \"중식\", \"count\": 9}]",
         "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 623,
+          "widthComment": 341,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747294377502,
+          "updateAt": 1749536572745,
           "createAt": 1747188966834
         }
       },
@@ -1385,20 +1405,20 @@
       "hko5tprc0JKN1aTXQFqNH": {
         "id": "hko5tprc0JKN1aTXQFqNH",
         "tableId": "f2nWdhEXXlyqQLVvqVWc2",
-        "name": "best_foods_json",
+        "name": "best_food1_name",
         "comment": "[{\"food_name\": \"돈까스\", \"score\": 5.0}, {\"food_name\": \"김치찌개\", \"score\": 4.8}]",
         "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 86,
+          "widthName": 95,
           "widthComment": 411,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747192286272,
+          "updateAt": 1749536643350,
           "createAt": 1747189147377
         }
       },
@@ -1445,20 +1465,20 @@
       "A8N87r_YoIlXgWJUbdo8e": {
         "id": "A8N87r_YoIlXgWJUbdo8e",
         "tableId": "f2nWdhEXXlyqQLVvqVWc2",
-        "name": "worst_foods_json",
+        "name": "best_food1_score",
         "comment": "[{\"food_name\": \"오이무침\", \"score\": 2.0}]",
         "dataType": "JSON",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 93,
+          "widthName": 94,
           "widthComment": 213,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1747192291568,
+          "updateAt": 1749536650758,
           "createAt": 1747192274407
         }
       },
@@ -1541,28 +1561,471 @@
           "updateAt": 1747200413017,
           "createAt": 1747198101824
         }
+      },
+      "hIH_pTTAzpP3BlzUdKLaj": {
+        "id": "hIH_pTTAzpP3BlzUdKLaj",
+        "tableId": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "iqr_type",
+        "comment": "{'total', 'ord', 'gender'} 3가지",
+        "dataType": "ENUM",
+        "default": "",
+        "options": 10,
+        "ui": {
+          "keys": 1,
+          "widthName": 60,
+          "widthComment": 151,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536811187,
+          "createAt": 1749536445198
+        }
+      },
+      "PuLYWMNRPyMZyGItshqxx": {
+        "id": "PuLYWMNRPyMZyGItshqxx",
+        "tableId": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "q1",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536469502,
+          "createAt": 1749536445653
+        }
+      },
+      "u3gX7j66c2obx18PWUWge": {
+        "id": "u3gX7j66c2obx18PWUWge",
+        "tableId": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "q2",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536469933,
+          "createAt": 1749536445869
+        }
+      },
+      "dWb7Bsuz-sqhcrlpCYnPR": {
+        "id": "dWb7Bsuz-sqhcrlpCYnPR",
+        "tableId": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "q3",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536470358,
+          "createAt": 1749536446326
+        }
+      },
+      "zLuMj2b4U9iH453W9PRBS": {
+        "id": "zLuMj2b4U9iH453W9PRBS",
+        "tableId": "l979n34GeRK1fWP0TLMGX",
+        "name": "category_json",
+        "comment": "[{\"tag\": \"고기\", \"count\": 7}, {\"tag\": \"밥\", \"count\": 5}]",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 75,
+          "widthComment": 265,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536568256,
+          "createAt": 1749536551878
+        }
+      },
+      "q9S1sKwySwLhkwizzBz2C": {
+        "id": "q9S1sKwySwLhkwizzBz2C",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food2_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 95,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536744310,
+          "createAt": 1749536626718
+        }
+      },
+      "hurN2XpNN-iDEpWKn5cKF": {
+        "id": "hurN2XpNN-iDEpWKn5cKF",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food2_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 94,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536744775,
+          "createAt": 1749536627039
+        }
+      },
+      "yU7X1zNERnDly7b-UoP8x": {
+        "id": "yU7X1zNERnDly7b-UoP8x",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food3_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 95,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536745183,
+          "createAt": 1749536627190
+        }
+      },
+      "2uPUdiQo0EVw0P8gKZ5t0": {
+        "id": "2uPUdiQo0EVw0P8gKZ5t0",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food3_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 94,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536745583,
+          "createAt": 1749536627342
+        }
+      },
+      "YyPSfk48GtOFWaEJ9lUZx": {
+        "id": "YyPSfk48GtOFWaEJ9lUZx",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food4_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 95,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536745974,
+          "createAt": 1749536627503
+        }
+      },
+      "tdHD9-JkbkBEFQL40JNsY": {
+        "id": "tdHD9-JkbkBEFQL40JNsY",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food4_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 94,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536746382,
+          "createAt": 1749536627646
+        }
+      },
+      "-OdNJSnQKyfKGTYYgGVVM": {
+        "id": "-OdNJSnQKyfKGTYYgGVVM",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food5_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 95,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536746806,
+          "createAt": 1749536627798
+        }
+      },
+      "mbxv27G1RnGWFuoVly8U5": {
+        "id": "mbxv27G1RnGWFuoVly8U5",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "best_food5_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 94,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536747255,
+          "createAt": 1749536638830
+        }
+      },
+      "xGG5IIGbs3g23FLcQC87-": {
+        "id": "xGG5IIGbs3g23FLcQC87-",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food1_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 102,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536747702,
+          "createAt": 1749536638990
+        }
+      },
+      "iKMQDKo6Qfv4tvOpyBOop": {
+        "id": "iKMQDKo6Qfv4tvOpyBOop",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food1_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 100,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536748702,
+          "createAt": 1749536639133
+        }
+      },
+      "cT8S-dHYkP5s4Zlc8eZbq": {
+        "id": "cT8S-dHYkP5s4Zlc8eZbq",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food2_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 102,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536748109,
+          "createAt": 1749536639285
+        }
+      },
+      "BfAspt-8jGLNcLa42TSkt": {
+        "id": "BfAspt-8jGLNcLa42TSkt",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food2_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 100,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536749422,
+          "createAt": 1749536639405
+        }
+      },
+      "3Usrp2XUuInsaykiLKVxA": {
+        "id": "3Usrp2XUuInsaykiLKVxA",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food3_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 102,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536749903,
+          "createAt": 1749536685349
+        }
+      },
+      "xBuqIvOAy7RY3OBURR22Q": {
+        "id": "xBuqIvOAy7RY3OBURR22Q",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food3_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 100,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536750855,
+          "createAt": 1749536685486
+        }
+      },
+      "ebeHYirjNXgTiAckU47RP": {
+        "id": "ebeHYirjNXgTiAckU47RP",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food4_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 102,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536750341,
+          "createAt": 1749536685622
+        }
+      },
+      "tRiz87wvMXVKhwjoxEPOE": {
+        "id": "tRiz87wvMXVKhwjoxEPOE",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food4_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 100,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536751320,
+          "createAt": 1749536704285
+        }
+      },
+      "oPvGxUOr8q-ipF6531VWs": {
+        "id": "oPvGxUOr8q-ipF6531VWs",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food5_name",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 102,
+          "widthComment": 60,
+          "widthDataType": 75,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536751766,
+          "createAt": 1749536704487
+        }
+      },
+      "OTo7DNzYTvZ5V6OyAw2xY": {
+        "id": "OTo7DNzYTvZ5V6OyAw2xY",
+        "tableId": "f2nWdhEXXlyqQLVvqVWc2",
+        "name": "worst_food5_score",
+        "comment": "",
+        "dataType": "FLOAT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 100,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749536752214,
+          "createAt": 1749536704741
+        }
       }
     },
     "relationshipEntities": {},
     "indexEntities": {},
     "indexColumnEntities": {},
-    "memoEntities": {
-      "6d3bkIYpCs6bgXxZipc5p": {
-        "id": "6d3bkIYpCs6bgXxZipc5p",
-        "value": "",
-        "ui": {
-          "x": 908,
-          "y": 475,
-          "zIndex": 121,
-          "width": 116,
-          "height": 100,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1747188927850,
-          "createAt": 1747188927850
-        }
-      }
-    }
+    "memoEntities": {}
   }
 }
