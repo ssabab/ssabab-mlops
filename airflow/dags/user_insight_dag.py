@@ -4,7 +4,6 @@ from airflow.operators.dummy import DummyOperator
 from airflow.utils.task_group import TaskGroup
 from datetime import datetime, timedelta
 
-from tasks.load_user_data import load_user_data
 from tasks.generate_insight import generate_insight_chunk
 from tasks.save_to_dw import save_insight_to_dw
 
@@ -21,22 +20,35 @@ with DAG(
     schedule_interval="@daily",
     catchup=False,
     description="LLM 기반 사용자 인사이트 생성 DAG",
-    tags=["insight", "llm", "dw"],
+    tags=["llm", "insight", "user"]
 ) as dag:
 
     start = DummyOperator(task_id="start")
 
-    with TaskGroup("generate_insight_chunks") as chunk_group:
-        for chunk_id in range(10):
-            PythonOperator(
-                task_id=f"generate_chunk_{chunk_id}",
-                python_callable=generate_insight_chunk,
-                op_kwargs={"chunk_id": chunk_id}
-            )
-
-    save_result_task = PythonOperator(
-        task_id="save_to_dw",
-        python_callable=save_insight_to_dw
+    fetch_user_ids = PythonOperator(
+        task_id="fetch_user_ids",
+        python_callable=fetch_user_ids_task
     )
 
-    start >> chunk_group >> save_result_task
+    load_user_data = PythonOperator(
+        task_id="load_user_data",
+        python_callable=load_user_data_task
+    )
+
+    from airflow.operators.python import ShortCircuitOperator
+
+    def has_users(**context):
+        return bool(context['ti'].xcom_pull(task_ids='fetch_user_ids', key='user_ids'))
+
+    check_user_exists = ShortCircuitOperator(
+        task_id='check_user_exists',
+        python_callable=has_users
+    )
+
+    user_ids = get_all_user_ids()
+    generate_insights_group = dynamic_user_tasks(dag, user_ids)
+
+    end = DummyOperator(task_id="end")
+
+    start >> fetch_user_ids >> check_user_exists >> load_user_data >> generate_insights_group >> end
+
