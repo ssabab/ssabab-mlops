@@ -45,20 +45,25 @@ def fetch_and_insert(query, target_table, column_order, params=None, insert_stra
 def create_tables_from_sql_files():
     with get_mysql_connection() as conn:
         with conn.cursor() as cur:
-            for subfolder in os.listdir(SQL_PATH):
-                folder_path = os.path.join(SQL_PATH, subfolder)
+            for item in sorted(os.listdir(SQL_PATH)):
+                folder_path = os.path.join(SQL_PATH, item)
+
+                if not os.path.isdir(folder_path):
+                    continue
+
                 for filename in sorted(os.listdir(folder_path)):
                     if filename.endswith(".sql"):
                         file_path = os.path.join(folder_path, filename)
                         try:
                             with open(file_path, "r", encoding="utf-8") as f:
                                 sql = f.read()
-                                log.info(f"Executing: {filename}")
+                                log.info(f"Executing SQL file: {file_path}")
                                 cur.execute(sql)
                         except Exception as e:
                             log.error(f"Failed to execute {filename}: {e}")
-        conn.commit()
-        log.info("All SQL files executed successfully.")
+
+            conn.commit()
+            log.info("All SQL files executed successfully.")
 
 
 @task
@@ -72,31 +77,21 @@ def insert_dim_food_data():
 
 
 @task
-def insert_dim_user_group_data():
-    query = """
-        SELECT group_id, user_id, ord_num, class
-        FROM account
-    """
-    column_order = ["group_id", "user_id", "ord_num", "class"]
-    fetch_and_insert(query, "dim_user_group", column_order, insert_strategy="ignore")
-
-
-@task
 def insert_dim_user_data():
     query = """
-        SELECT user_id, birth_year, gender
+        SELECT user_id, age, gender, ssafy_year, class_num
         FROM account
     """
-    column_order = ["user_id", "birth_year", "gender"]
+    column_order = ["user_id", "age", "gender", "ssafy_year", "class_num"]
     fetch_and_insert(query, "dim_user", column_order, insert_strategy="ignore")
 
 
 @task
 def insert_fact_user_ratings_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
     query = """
-        SELECT user_id, group_id, food_id, rating, created_date, updated_date
-        FROM raw_user_ratings_data 
-        WHERE DATE(created_date) = %s
+        SELECT user_id, food_id, food_score, timestamp AS created_date
+        FROM food_review
+        WHERE DATE(timestamp) = %s
     """
-    column_order = ["user_id", "group_id", "food_id", "rating", "created_date", "updated_date"]
+    column_order = ["user_id", "food_id", "food_score", "created_date"]
     fetch_and_insert(query, "fact_user_ratings", column_order, params=[target_date])
