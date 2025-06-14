@@ -26,6 +26,11 @@ def get_previous_month():
         return f"{today.year-1}-12"  # 1월이면 전년 12월
     return f"{today.year}-{today.month-1:02d}"
 
+def get_current_month():
+    # 현재 날짜의 월을 반환
+    today = datetime.now()
+    return f"{today.year}-{today.month:02d}"
+
 with DAG(
     'monthly_total_report_dag',
     default_args=default_args,
@@ -44,7 +49,9 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_food_ranking.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_previous_month()],
+        application_args=[get_current_month()],
+        packages='mysql:mysql-connector-java:8.0.33',
+        jars='/path/to/mysql-connector-java-8.0.33.jar',
     )
 
     visitors_job = SparkSubmitOperator(
@@ -52,7 +59,9 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_visitors.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_previous_month()],
+        application_args=[get_current_month()],
+        packages='mysql:mysql-connector-java:8.0.33',
+        jars='/path/to/mysql-connector-java-8.0.33.jar',
     )
 
     vote_count_job = SparkSubmitOperator(
@@ -60,7 +69,9 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_vote_count.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_previous_month()],
+        application_args=[get_current_month()],
+        packages='mysql:mysql-connector-java:8.0.33',
+        jars='/path/to/mysql-connector-java-8.0.33.jar',
     )
     
     # 종료 태스크

@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, concat, lit
+from pyspark.sql.functions import col, count, concat, lit, year, current_date
 from pyspark.sql.types import *
 from datetime import datetime
 import sys
@@ -17,9 +17,9 @@ def main():
 
     food_review_df = spark.read.jdbc(
         url=mysql_url,
-        table="food_review",
+        table="menu_review",
         properties=mysql_props
-    ).filter(col("create_at").substr(1, 7) == target_month)
+    ).filter(col("timestamp").substr(1, 7) == target_month)
 
     account_df = spark.read.jdbc(
         url=mysql_url,
@@ -28,11 +28,11 @@ def main():
     )
 
     joined_df = food_review_df.join(account_df, "user_id")
-    joined_df = joined_df.withColumn("generation", concat(col("ord_num"), lit("기")))
+    joined_df = joined_df.withColumn("generation", concat(col("class_num"), lit("기")))
     joined_df = joined_df.withColumn("gender", col("gender").cast("string"))
-    joined_df = joined_df.withColumn("age", lit(datetime.now().year) - col("birth_year"))
+    joined_df = joined_df.withColumn("age", year(current_date()) - year(col("birth_date")))
 
-    result_df = joined_df.groupBy("class", "generation", "gender", "age") \
+    result_df = joined_df.groupBy("class_num", "generation", "gender", "age") \
         .agg(count("*").alias("review_count"))
 
     result_df.write.jdbc(

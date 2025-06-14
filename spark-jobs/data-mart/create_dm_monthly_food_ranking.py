@@ -18,7 +18,7 @@ def main():
         url=mysql_url,
         table="food_review",
         properties=mysql_props
-    ).filter(col("create_at").substr(1, 7) == target_month)
+    ).filter(col("timestamp").substr(1, 7) == target_month)
 
     food_df = spark.read.jdbc(
         url=mysql_url,
@@ -27,7 +27,7 @@ def main():
     )
 
     df = food_review_df.join(food_df, "food_id") \
-        .select("food_id", "food_name", "food_score", "create_at")
+        .select("food_id", "food_name", "food_score", "timestamp")
 
     avg_score_df = df.groupBy("food_id", "food_name") \
         .agg(avg("food_score").alias("avg_score"))

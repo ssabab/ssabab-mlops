@@ -21,12 +21,20 @@ def main():
     ).filter(col("timestamp").substr(1, 7) == target_month) \
      .select(to_date(col("timestamp")).alias("date"), col("user_id")).distinct()
 
-    # pre_vote에서 해당 월에 투표한 user_id, 날짜 추출
+    # menu 테이블에서 날짜 정보 가져오기
+    menu_df = spark.read.jdbc(
+        url=mysql_url,
+        table="menu",
+        properties=mysql_props
+    ).select(col("menu_id"), col("date"))
+
+    # pre_vote와 menu를 조인하여 날짜 정보 가져오기
     pre_vote_df = spark.read.jdbc(
         url=mysql_url,
         table="pre_vote",
         properties=mysql_props
-    ).filter(col("date").substr(1, 7) == target_month) \
+    ).join(menu_df, "menu_id") \
+     .filter(col("date").substr(1, 7) == target_month) \
      .select(to_date(col("date")).alias("date"), col("user_id")).distinct()
 
     # 두 집합을 합치고 중복 제거 (일별 유니크)
@@ -36,7 +44,7 @@ def main():
     daily_count_df = daily_users_df.groupBy("date").agg(countDistinct("user_id").alias("daily_user_count"))
 
     # 월별 합계
-    monthly_sum_df = daily_count_df.agg(spark_sum("daily_user_count").alias("monthly_user_sum"))
+    monthly_sum_df = daily_count_df.agg(spark_sum("daily_user_count").alias("user_count"))
 
     # 결과 저장
     monthly_sum_df.write.jdbc(
