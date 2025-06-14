@@ -79,10 +79,10 @@ def insert_dim_food_data():
 @task
 def insert_dim_user_data():
     query = """
-        SELECT user_id, age, gender, ssafy_year, class_num
+        SELECT user_id, birth_date, gender, ssafy_year, class_num
         FROM account
     """
-    column_order = ["user_id", "age", "gender", "ssafy_year", "class_num"]
+    column_order = ["user_id", "birth_date", "gender", "ssafy_year", "class_num"]
     fetch_and_insert(query, "dim_user", column_order, insert_strategy="ignore")
 
 
