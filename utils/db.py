@@ -10,12 +10,12 @@ def get_mysql_connection():
         user=os.getenv("MYSQL_USER"),
         password=os.getenv("MYSQL_PASSWORD"),
         database=os.getenv("MYSQL_DATABASE"),
-        port=os.getenv("MYSQL_PORT", "3306")
+        port=int(os.getenv("MYSQL_PORT", 3306))
     )
 
 def get_mysql_jdbc_url():
     host = os.getenv("MYSQL_HOST")
-    port = os.getenv("MYSQL_PORT", "3306")
+    port = int(os.getenv("MYSQL_PORT", 3306))
     database = os.getenv("MYSQL_DATABASE")
     return f"jdbc:mysql://{host}:{port}/{database}?useSSL=false&serverTimezone=UTC"
 

@@ -8,6 +8,7 @@ from common.env_loader import load_env
 load_env()
 
 SPARK_PATH = os.getenv("SPARK_PATH")
+JDBC_JAR_PATH = os.getenv("JDBC_JAR_PATH")
 
 default_args = {
     "owner": "airflow",
@@ -32,6 +33,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_user_category_tag_preference.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
         application_args=["2025-05-14"],
     )
 
@@ -40,6 +42,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_top_bottom.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
         application_args=["2025-05-14"],
     )
 
@@ -48,6 +51,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_iqr.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
         application_args=["2025-05-14"],
     )
 

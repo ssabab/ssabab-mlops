@@ -27,20 +27,18 @@ with DAG(
 
     create_schema = create_tables_from_sql_files()
 
-    # TaskGroup 1: raw → fact with snapshot_date
+    # TaskGroup 1: raw → dim
     with TaskGroup("transform_raw_to_dim", tooltip="raw 테이블로부터 dimension 테이블 생성") as dim_group:
         insert_dim_food_data()
-        insert_dim_user_group_data()
         insert_dim_user_data()
 
     dim_done = BashOperator(
         task_id="dim_insert_complete",
         bash_command='echo "Dimension 테이블 적재 완료"',
     )
-    
-    
-    # TaskGroup 2: raw → dim with snapshot_date
-    with TaskGroup("transform_raw_to_fact", tooltip="raw 테이블로부터 fact 테이블 생성 및 snapshot 기록") as fact_group:
+
+    # TaskGroup 2: raw → fact
+    with TaskGroup("transform_raw_to_fact", tooltip="raw 테이블로부터 fact 테이블 생성") as fact_group:
         insert_fact_user_ratings_data()
 
     fact_done = BashOperator(
@@ -48,10 +46,9 @@ with DAG(
         bash_command='echo "Fact 테이블 적재 완료"',
     )
 
-    # Trigger downstream DAG
     trigger_report_dag = TriggerDagRunOperator(
-        task_id="trigger_daily_user_report",
-        trigger_dag_id="daily_user_dm_report_dag",
+        task_id="trigger_daily_user_report_dag",
+        trigger_dag_id="daily_user_report_dag",
         wait_for_completion=True,
     )
 

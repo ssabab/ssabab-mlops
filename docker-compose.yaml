@@ -26,9 +26,10 @@ x-airflow-common: &airflow-common
     - ./airflow/sql:/opt/airflow/sql
     - ./common:/opt/airflow/common
     - ./utils:/opt/airflow/utils
-    - ./spark-jobs:/opt/spark-jobs
+    - ./spark/spark-jobs:/opt/spark-jobs
+    - ./spark/jars:/opt/spark-jars
     - .env:/opt/.env 
-  user: "${AIRFLOW_UID:-50000}:0"
+  user: "${AIRFLOW_UID:-1000}:0"
   depends_on:
     - redis
     - postgres
@@ -150,7 +151,7 @@ services:
       - -c
       - |
         mkdir -p /sources/logs /sources/dags /sources/plugins
-        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        chown -R "${AIRFLOW_UID:-1000}:0" /sources/{logs,dags,plugins}
         exec /entrypoint airflow version
     environment:
       <<: *airflow-common-env
@@ -158,7 +159,7 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-    user: "0:0"
+    user: "${AIRFLOW_UID:-1000}:0"
     volumes:
       - ./airflow:/sources
 
@@ -213,7 +214,8 @@ services:
     networks:
       - ssabab
     volumes:
-      - ./spark-jobs:/opt/spark-jobs
+      - ./spark/spark-jobs:/opt/spark-jobs
+      - ./spark/jars:/opt/spark-jars
       - ./common:/opt/airflow/common
       - ./utils:/opt/airflow/utils
       - .env:/opt/.env
@@ -233,7 +235,8 @@ services:
     networks:
       - ssabab
     volumes:
-      - ./spark-jobs:/opt/spark-jobs
+      - ./spark/spark-jobs:/opt/spark-jobs
+      - ./spark/jars:/opt/spark-jars
       - ./common:/opt/airflow/common
       - ./utils:/opt/airflow/utils
       - .env:/opt/.env

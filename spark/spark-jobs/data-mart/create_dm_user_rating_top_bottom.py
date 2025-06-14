@@ -24,7 +24,7 @@ food_df = spark.read.jdbc(
     properties=mysql_properties
 )
 
-ratings = fact_df.join(food_df, on="food_id").select("user_id", "food_name", "score")
+ratings = fact_df.join(food_df, on="food_id").select("user_id", "food_name", col("food_score").alias("score"))
 
 
 window_best = Window.partitionBy("user_id").orderBy(desc("score"), asc("food_name"))
@@ -37,17 +37,18 @@ worst_df = ratings.withColumn("rank", row_number().over(window_worst)) \
 
 
 def pivot_top_bottom(df, prefix):
-    return df.withColumn("food_col", col("rank")) \
-        .select(
-            col("user_id"),
-            col("food_col"),
-            col("food_name"),
-            col("score")
-        ).groupBy("user_id").pivot("food_col", list(range(1, 6))) \
-        .agg(
-            *[first("food_name").alias(f"{prefix}_food{i}_name") for i in range(1, 6)],
-            *[first("score").alias(f"{prefix}_food{i}_score") for i in range(1, 6)]
-        )
+    df = df.withColumn("food_col", col("rank").cast("string"))
+    pivot_values = [str(i) for i in range(1, 6)]
+
+    agg_exprs = []
+    for i in range(1, 6):
+        agg_exprs.append(first("food_name").alias(f"{prefix}_food{i}_name"))
+        agg_exprs.append(first("score").alias(f"{prefix}_food{i}_score"))
+
+    return df.select("user_id", "food_col", "food_name", "score") \
+        .groupBy("user_id") \
+        .pivot("food_col", pivot_values) \
+        .agg(*agg_exprs)
 
 best_pivot = pivot_top_bottom(best_df, "best")
 worst_pivot = pivot_top_bottom(worst_df, "worst")

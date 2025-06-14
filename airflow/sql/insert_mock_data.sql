@@ -27,16 +27,17 @@ INSERT INTO account (
 
 -- food
 INSERT INTO food (food_id, food_name, main_sub, category, tag) VALUES
-(1, '제육볶음', 'MAIN', 'KOREAN', 'MEAT'),
-(2, '김치찌개', 'MAIN', 'KOREAN', 'SOUP'),
-(3, '스테이크', 'MAIN', 'WESTERN', 'MEAT'),
-(4, '파스타', 'MAIN', 'WESTERN', 'NOODLE'),
-(5, '비빔밥', 'MAIN', 'KOREAN', 'RICE'),
-(6, '삼겹살', 'MAIN', 'KOREAN', 'MEAT'),
-(7, '치킨', 'MAIN', 'KOREAN', 'MEAT'),
-(8, '피자', 'MAIN', 'WESTERN', 'MEAT'),
-(9, '햄버거', 'MAIN', 'WESTERN', 'MEAT'),
-(10, '샐러드', 'SUB', 'WESTERN', 'VEGETABLE');
+(1, '제육볶음', '주메뉴', '한식', '고기'),
+(2, '김치찌개', '주메뉴', '한식', '국'),
+(3, '스테이크', '주메뉴', '양식', '고기'),
+(4, '파스타', '주메뉴', '양식', '면'),
+(5, '비빔밥', '주메뉴', '한식', '밥'),
+(6, '삼겹살', '주메뉴', '한식', '고기'),
+(7, '치킨', '주메뉴', '한식', '고기'),
+(8, '피자', '주메뉴', '양식', '고기'),
+(9, '햄버거', '주메뉴', '양식', '고기'),
+(10, '샐러드', '서브메뉴', '양식', '야채');
+
 
 -- menu
 INSERT INTO menu (menu_id, date) VALUES
@@ -64,8 +65,7 @@ INSERT INTO menu_review (id, user_id, menu_id, menu_score, menu_comment, timesta
 (1, 1, 1, 4.5, '맛있었어요!', CURRENT_TIMESTAMP),
 (2, 2, 2, 4.0, '좋았습니다.', CURRENT_TIMESTAMP),
 (3, 3, 3, 3.5, '괜찮았어요', CURRENT_TIMESTAMP),
-(4, 4, 4, 4.2, '기대했던 것보다 맛있었어요', CURRENT_TIMESTAMP),
-(5, 5, 5, 5.0, '다음에도 주문할게요', CURRENT_TIMESTAMP);
+(4, 4, 4, 4.2, '기대했던 것보다 맛있었어요', CURRENT_TIMESTAMP)
 
 -- food_review
 INSERT INTO food_review (id, user_id, food_id, food_score, timestamp) VALUES

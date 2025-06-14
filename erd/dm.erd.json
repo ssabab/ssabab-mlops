@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -195,
-    "scrollLeft": -680,
+    "scrollTop": -777.3333,
+    "scrollLeft": -679,
     "zoomLevel": 0.94,
     "show": 431,
     "database": 16,
@@ -377,12 +377,14 @@
         "comment": "전체, 기수, 성별에 따른 사분위",
         "columnIds": [
           "hIH_pTTAzpP3BlzUdKLaj",
+          "6LZMdC65_N7mX_hOmOTXX",
           "PuLYWMNRPyMZyGItshqxx",
           "u3gX7j66c2obx18PWUWge",
           "dWb7Bsuz-sqhcrlpCYnPR"
         ],
         "seqColumnIds": [
           "hIH_pTTAzpP3BlzUdKLaj",
+          "6LZMdC65_N7mX_hOmOTXX",
           "PuLYWMNRPyMZyGItshqxx",
           "u3gX7j66c2obx18PWUWge",
           "dWb7Bsuz-sqhcrlpCYnPR"
@@ -396,7 +398,7 @@
           "color": "#795548"
         },
         "meta": {
-          "updateAt": 1749536787002,
+          "updateAt": 1749914005460,
           "createAt": 1749536425615
         }
       }
@@ -2020,6 +2022,26 @@
         "meta": {
           "updateAt": 1749536752214,
           "createAt": 1749536704741
+        }
+      },
+      "6LZMdC65_N7mX_hOmOTXX": {
+        "id": "6LZMdC65_N7mX_hOmOTXX",
+        "tableId": "aogbJ4pWl2x6dcuzS4Efk",
+        "name": "iqr_value",
+        "comment": "'F', 'M', 13' 등등",
+        "dataType": "VARCHAR",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 84,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1749914033145,
+          "createAt": 1749914004071
         }
       }
     },
