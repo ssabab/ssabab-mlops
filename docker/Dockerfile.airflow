@@ -30,5 +30,7 @@ RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SP
 
 USER airflow
 
+RUN pip install --no-cache-dir torch==2.5.1+cu121 torchvision --index-url https://download.pytorch.org/whl/cu121
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

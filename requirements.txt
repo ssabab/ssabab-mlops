@@ -29,5 +29,4 @@ requests==2.31.0
 
 # LLM
 transformers==4.52.4
-torch==2.7.1
 accelerate==1.7.0
