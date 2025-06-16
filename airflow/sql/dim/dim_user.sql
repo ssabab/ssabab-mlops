@@ -1,7 +1,8 @@
-CREATE TABLE IF NOT EXISTS dim_user (
-    user_id INT PRIMARY KEY,
-    birth_year INT,
-    gender CHAR(1),
-    ord_num INT,
-    class INT
+CREATE TABLE dim_user (
+    user_id     BIGINT PRIMARY KEY,
+    birth_date  DATE,
+    gender      VARCHAR(10),
+    ssafy_year  VARCHAR(4),
+    class_num   VARCHAR(10),
+    region      VARCHAR(20)
 );

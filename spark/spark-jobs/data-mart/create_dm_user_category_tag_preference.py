@@ -39,7 +39,7 @@ category_df = joined_df.groupBy("user_id", "category") \
     .withColumn("category_json_struct", struct(col("category"), col("count")))
 
 category_json_df = category_df.groupBy("user_id") \
-    .agg(collect_list("category_json_struct").alias("category_json"))
+    .agg(to_json(collect_list("category_json_struct")).alias("category_json"))
 
 
 tag_df = joined_df.groupBy("user_id", "tag") \
@@ -47,7 +47,7 @@ tag_df = joined_df.groupBy("user_id", "tag") \
     .withColumn("tag_json_struct", struct(col("tag"), col("count")))
 
 tag_json_df = tag_df.groupBy("user_id") \
-    .agg(collect_list("tag_json_struct").alias("tag_json"))
+    .agg(to_json(collect_list("tag_json_struct")).alias("tag_json"))
 
 
 final_df = category_json_df.join(tag_json_df, on="user_id", how="outer")
