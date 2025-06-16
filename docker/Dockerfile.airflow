@@ -20,13 +20,21 @@ RUN apt update && apt install -y \
 # Spark 설치
 ENV SPARK_VERSION=3.5.4
 ENV SPARK_HOME=/opt/spark
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
 ENV PATH="${JAVA_HOME}/bin:${SPARK_HOME}/bin:${PATH}"
 
+# Java 심볼릭 링크 생성
+RUN mkdir -p /usr/lib/jvm && \
+    ln -s /usr/lib/jvm/java-17-openjdk-arm64 /usr/lib/jvm/java-17-openjdk-amd64
+
+# Spark 설치
 RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz && \
     tar -xvzf spark-${SPARK_VERSION}-bin-hadoop3.tgz -C /opt/ && \
     mv /opt/spark-${SPARK_VERSION}-bin-hadoop3 $SPARK_HOME && \
     rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
+
+# MySQL JDBC 드라이버 설치
+RUN wget https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar -O /opt/spark/jars/mysql-connector-java.jar
 
 USER airflow
 
