@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -57.9552,
-    "scrollLeft": -36.6676,
-    "zoomLevel": 0.97,
+    "scrollTop": -190.7073,
+    "scrollLeft": -20.2668,
+    "zoomLevel": 1,
     "show": 431,
     "database": 16,
     "databaseName": "",
@@ -379,11 +379,13 @@
         "name": "dm_monthly_frequent_evaluator",
         "comment": "월간 투표 우수자",
         "columnIds": [
+          "QJohMDDp5mwz3X6qypdYj",
           "EahOgkzxsKDaP-6XSyWak",
           "qFX76b2mfdOxcx_kxsFXx",
           "chumPYXVVlN_WPw5SaT-3"
         ],
         "seqColumnIds": [
+          "QJohMDDp5mwz3X6qypdYj",
           "EahOgkzxsKDaP-6XSyWak",
           "qFX76b2mfdOxcx_kxsFXx",
           "chumPYXVVlN_WPw5SaT-3"
@@ -397,7 +399,7 @@
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1750084750234,
+          "updateAt": 1750085025403,
           "createAt": 1750083777412
         }
       }
@@ -1967,19 +1969,19 @@
         "id": "EahOgkzxsKDaP-6XSyWak",
         "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
         "name": "name",
-        "comment": "",
+        "comment": "평가자 이름",
         "dataType": "VARCHAR",
         "default": "",
         "options": 0,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 60,
+          "widthComment": 65,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750083865766,
+          "updateAt": 1750085009304,
           "createAt": 1750083837205
         }
       },
@@ -1987,7 +1989,7 @@
         "id": "qFX76b2mfdOxcx_kxsFXx",
         "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
         "name": "evaluates",
-        "comment": "",
+        "comment": "평가 횟수",
         "dataType": "INTEGER",
         "default": "",
         "options": 0,
@@ -1999,7 +2001,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084887067,
+          "updateAt": 1750084997460,
           "createAt": 1750083841099
         }
       },
@@ -2007,7 +2009,7 @@
         "id": "chumPYXVVlN_WPw5SaT-3",
         "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
         "name": "last_evaluate",
-        "comment": "",
+        "comment": "최근 평가",
         "dataType": "DATE",
         "default": "",
         "options": 0,
@@ -2019,7 +2021,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084765126,
+          "updateAt": 1750085005069,
           "createAt": 1750083845497
         }
       },
@@ -2061,6 +2063,26 @@
         "meta": {
           "updateAt": 1750084118366,
           "createAt": 1750084059109
+        }
+      },
+      "QJohMDDp5mwz3X6qypdYj": {
+        "id": "QJohMDDp5mwz3X6qypdYj",
+        "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
+        "name": "rank",
+        "comment": "순위",
+        "dataType": "INETEGER",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1750085038351,
+          "createAt": 1750085023133
         }
       }
     },
