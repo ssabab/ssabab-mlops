@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -190.7073,
-    "scrollLeft": -20.2668,
+    "scrollTop": -24.0407,
+    "scrollLeft": -19.2668,
     "zoomLevel": 1,
     "show": 431,
     "database": 16,
@@ -110,7 +110,7 @@
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1750083652977,
+          "updateAt": 1750085166119,
           "createAt": 1746683497255
         }
       },
@@ -529,7 +529,7 @@
         "id": "J56-eSRyemB3yQNEdOGYT",
         "tableId": "aWWLtTHq8_sIUXawd8XTA",
         "name": "food_id",
-        "comment": "",
+        "comment": "음식 ID",
         "dataType": "INTEGER",
         "default": "",
         "options": 10,
@@ -541,7 +541,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1746683706083,
+          "updateAt": 1750085166534,
           "createAt": 1746683497255
         }
       },
@@ -569,7 +569,7 @@
         "id": "rLKUNvJIddwMRZXKUAdbS",
         "tableId": "aWWLtTHq8_sIUXawd8XTA",
         "name": "avg_score",
-        "comment": "",
+        "comment": "평균 점수",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -581,7 +581,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1746683647345,
+          "updateAt": 1750085160713,
           "createAt": 1746683623366
         }
       },
@@ -589,7 +589,7 @@
         "id": "rdFnc7tUrZH43U_2_A3M2",
         "tableId": "aWWLtTHq8_sIUXawd8XTA",
         "name": "food_name",
-        "comment": "",
+        "comment": "음식 이름",
         "dataType": "VARCHAR",
         "default": "",
         "options": 0,
@@ -601,7 +601,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750061881335,
+          "updateAt": 1750085164264,
           "createAt": 1746683805366
         }
       },
@@ -609,7 +609,7 @@
         "id": "kwVn6aR_LMjztWpQ5LTsv",
         "tableId": "aWWLtTHq8_sIUXawd8XTA",
         "name": "rank",
-        "comment": "",
+        "comment": "순위",
         "dataType": "INTEGER",
         "default": "",
         "options": 0,
@@ -621,7 +621,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1746683840825,
+          "updateAt": 1750085153386,
           "createAt": 1746683829561
         }
       },
@@ -1749,7 +1749,7 @@
         "id": "BAfMqYHDeE99cySp6PD1a",
         "tableId": "FzANZHH99zsB5BvMA_qAV",
         "name": "evaluator",
-        "comment": "",
+        "comment": "평가 푓수",
         "dataType": "INTEGER",
         "default": "0",
         "options": 8,
@@ -1761,7 +1761,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084365039,
+          "updateAt": 1750085126746,
           "createAt": 1750061923039
         }
       },
@@ -1769,7 +1769,7 @@
         "id": "3pRtuj8pRcrkBaT2oWepv",
         "tableId": "aWWLtTHq8_sIUXawd8XTA",
         "name": "count",
-        "comment": "",
+        "comment": "평가 횟수",
         "dataType": "INTEGER",
         "default": "",
         "options": 0,
@@ -1781,7 +1781,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750083569553,
+          "updateAt": 1750085171511,
           "createAt": 1750083558701
         }
       },
@@ -1829,7 +1829,7 @@
         "id": "_laP4Bs7QzK9ZtzdPKavU",
         "tableId": "RJXcnH9sCO3qHJv0rpm-s",
         "name": "min",
-        "comment": "",
+        "comment": "최솟값",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -1841,7 +1841,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084312985,
+          "updateAt": 1750085074241,
           "createAt": 1750083712770
         }
       },
@@ -1849,7 +1849,7 @@
         "id": "ZpU1s2W1yb_V0lf3fh14e",
         "tableId": "RJXcnH9sCO3qHJv0rpm-s",
         "name": "max",
-        "comment": "",
+        "comment": "최댓값",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -1861,7 +1861,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084311509,
+          "updateAt": 1750085077137,
           "createAt": 1750083716457
         }
       },
@@ -1869,7 +1869,7 @@
         "id": "gT28TgIOwN2V74gwaDGIj",
         "tableId": "RJXcnH9sCO3qHJv0rpm-s",
         "name": "avg",
-        "comment": "",
+        "comment": "평균값",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -1881,7 +1881,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084315099,
+          "updateAt": 1750085079797,
           "createAt": 1750083720527
         }
       },
@@ -1929,7 +1929,7 @@
         "id": "Du5kOJ6n3Mx3424ZkxQaZ",
         "tableId": "RJXcnH9sCO3qHJv0rpm-s",
         "name": "variance",
-        "comment": "",
+        "comment": "분산",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -1941,7 +1941,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084322222,
+          "updateAt": 1750085083810,
           "createAt": 1750083751591
         }
       },
@@ -1949,7 +1949,7 @@
         "id": "FN5dJ876Z_1IAx57ily4h",
         "tableId": "RJXcnH9sCO3qHJv0rpm-s",
         "name": "stdev",
-        "comment": "",
+        "comment": "표준편차",
         "dataType": "NUMERIC(3,2)",
         "default": "",
         "options": 0,
@@ -1961,7 +1961,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084323948,
+          "updateAt": 1750085106011,
           "createAt": 1750083756881
         }
       },
@@ -2029,19 +2029,19 @@
         "id": "IVrDtJqSboJ7tU1pLAWV3",
         "tableId": "FzANZHH99zsB5BvMA_qAV",
         "name": "cumulative",
-        "comment": "",
+        "comment": "누적 평가 횟수",
         "dataType": "INTEGER",
         "default": "",
         "options": 0,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 60,
+          "widthComment": 81,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084106589,
+          "updateAt": 1750085131161,
           "createAt": 1750084021413
         }
       },
@@ -2049,19 +2049,19 @@
         "id": "9MkCjFN5sviodo0Z7wUD1",
         "tableId": "FzANZHH99zsB5BvMA_qAV",
         "name": "difference",
-        "comment": "",
+        "comment": "지난달과 차이값",
         "dataType": "INTEGER",
         "default": "",
         "options": 0,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 60,
+          "widthComment": 89,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750084118366,
+          "updateAt": 1750085138081,
           "createAt": 1750084059109
         }
       },
