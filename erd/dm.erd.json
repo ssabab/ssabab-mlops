@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -24,
-    "scrollLeft": -14,
-    "zoomLevel": 1,
+    "scrollTop": -57.9552,
+    "scrollLeft": -36.6676,
+    "zoomLevel": 0.97,
     "show": 431,
     "database": 16,
     "databaseName": "",
@@ -376,7 +376,7 @@
       },
       "Nv9NP8P2Q0RTBeQk-71Fc": {
         "id": "Nv9NP8P2Q0RTBeQk-71Fc",
-        "name": "dm_monthly_frequent_visitors",
+        "name": "dm_monthly_frequent_evaluator",
         "comment": "월간 투표 우수자",
         "columnIds": [
           "EahOgkzxsKDaP-6XSyWak",
@@ -392,12 +392,12 @@
           "x": 53.5329,
           "y": 628.1995,
           "zIndex": 290,
-          "widthName": 160,
+          "widthName": 172,
           "widthComment": 93,
           "color": "#3F51B5"
         },
         "meta": {
-          "updateAt": 1750084122119,
+          "updateAt": 1750084750234,
           "createAt": 1750083777412
         }
       }
@@ -1986,7 +1986,7 @@
       "qFX76b2mfdOxcx_kxsFXx": {
         "id": "qFX76b2mfdOxcx_kxsFXx",
         "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
-        "name": "visits",
+        "name": "evaluates",
         "comment": "",
         "dataType": "INTEGER",
         "default": "",
@@ -1999,27 +1999,27 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750083862817,
+          "updateAt": 1750084887067,
           "createAt": 1750083841099
         }
       },
       "chumPYXVVlN_WPw5SaT-3": {
         "id": "chumPYXVVlN_WPw5SaT-3",
         "tableId": "Nv9NP8P2Q0RTBeQk-71Fc",
-        "name": "last_visit",
+        "name": "last_evaluate",
         "comment": "",
         "dataType": "DATE",
         "default": "",
         "options": 0,
         "ui": {
           "keys": 0,
-          "widthName": 60,
+          "widthName": 69,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1750083860386,
+          "updateAt": 1750084765126,
           "createAt": 1750083845497
         }
       },
