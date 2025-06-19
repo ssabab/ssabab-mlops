@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS dm_user_category_tag_preference (
-    user_id         BIGINT PRIMARY KEY,
-    category_json   JSON, -- 예: [{"category": "한식", "count": 12}, {"category": "중식", "count": 9}]
-    tag_json        JSON  -- 예: [{"tag": "고기", "count": 7}, {"tag": "밥", "count": 5}]
-);
