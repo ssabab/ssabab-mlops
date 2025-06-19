@@ -263,7 +263,7 @@ services:
 
 volumes:
   postgres-db-volume:
-  kafka_data:
+  # kafka_data:
 
 networks:
   ssabab:
