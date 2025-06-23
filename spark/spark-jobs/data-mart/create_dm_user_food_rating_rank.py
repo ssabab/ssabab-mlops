@@ -40,7 +40,7 @@ dm_user_food_rating_rank_df = best_df.unionByName(worst_df)
 
 dm_user_food_rating_rank_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_food_rating_rank",
+    table="ssabab_dm.dm_user_food_rating_rank",
     mode="overwrite",
     properties=mysql_props
 )

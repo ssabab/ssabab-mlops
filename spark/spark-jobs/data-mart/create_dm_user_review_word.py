@@ -32,7 +32,7 @@ dm_user_review_word_df = review_with_sentiment_df.groupBy("user_id", "word") \
 
 dm_user_review_word_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_review_word",
+    table="ssabab_dm.dm_user_review_word",
     mode="overwrite",
     properties=mysql_props
 )

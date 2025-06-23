@@ -46,7 +46,7 @@ category_stats_df = category_count_df.join(total_count_df, on="user_id", how="in
 
 category_stats_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_category_stats",
+    table="ssabab_dm.dm_user_category_stats",
     mode="overwrite",
     properties=mysql_props
 )

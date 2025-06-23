@@ -39,7 +39,7 @@ dm_user_summary_df = rating_summary_df.join(
 
 dm_user_summary_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_summary",
+    table="ssabab_dm.dm_user_summary",
     mode="overwrite",
     properties=mysql_properties
 )

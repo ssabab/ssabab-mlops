@@ -11,12 +11,10 @@ load_env()
 SQL_PATH = os.getenv("SQL_PATH")
 ALLOWED_TABLES = {
     "ssabab_dw.dim_user",
-    "ssabab_dw.dim_food",
-    "ssabab_dw.dim_category",
-    "ssabab_dw.dim_tag",
+    "ssabab_dw.dim_menu_food_combined",
     "ssabab_dw.fact_user_ratings",
-    "ssabab_dw.fact_user_tags",
-    "ssabab_dw.fact_user_pre_votes",
+    "ssabab_dw.fact_user_votings",
+    "ssabab_dw.fact_user_comments",
 }
 
 log = LoggingMixin().log
@@ -66,8 +64,9 @@ def create_tables_from_sql_files():
             conn.commit()
             log.info("All SQL files executed successfully.")
 
+
 @task
-def insert_dim_user_data():
+def insert_dim_user():
     query = """
         SELECT 
             user_id,
@@ -81,58 +80,58 @@ def insert_dim_user_data():
     fetch_and_insert(query, "ssabab_dw.dim_user", column_order, insert_strategy="ignore")
 
 @task
-def insert_dim_food_data():
+def insert_dim_menu_food_combined():
     query = """
-        SELECT food_id, food_name, category AS category_id
-        FROM food
+        SELECT 
+            mf.food_id,
+            f.food_name,
+            f.main_sub,
+            f.category AS category_name,
+            f.tag AS tag_name,
+            mf.menu_id,
+            m.date AS menu_date
+        FROM menu_food mf
+        JOIN food f ON mf.food_id = f.food_id
+        JOIN menu m ON mf.menu_id = m.menu_id
     """
-    column_order = ["food_id", "food_name", "category_id"]
-    fetch_and_insert(query, "ssabab_dw.dim_food", column_order, insert_strategy="ignore")
+    column_order = ["food_id", "food_name", "main_sub", "category_name", "tag_name", "menu_id", "menu_date"]
+    fetch_and_insert(query, "ssabab_dw.dim_menu_food_combined", column_order, insert_strategy="ignore")
 
 @task
-def insert_dim_category_data():
+def insert_fact_user_ratings(target_date: str = datetime.today().strftime('%Y-%m-%d')):
     query = """
-        SELECT DISTINCT category AS category_name
-        FROM food
-    """
-    column_order = ["category_name"]
-    fetch_and_insert(query, "ssabab_dw.dim_category", column_order, insert_strategy="ignore")
-
-@task
-def insert_dim_tag_data():
-    query = """
-        SELECT DISTINCT tag AS tag_name
-        FROM food_tag
-    """
-    column_order = ["tag_name"]
-    fetch_and_insert(query, "ssabab_dw.dim_tag", column_order, insert_strategy="ignore")
-
-@task
-def insert_fact_user_ratings_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
-    query = """
-        SELECT user_id, food_id, food_score, DATE(timestamp) AS created_date
+        SELECT user_id, food_id, food_score, DATE(timestamp) AS rating_date
         FROM food_review
         WHERE DATE(timestamp) = %s
     """
-    column_order = ["user_id", "food_id", "food_score", "created_date"]
+    column_order = ["user_id", "food_id", "food_score", "rating_date"]
     fetch_and_insert(query, "ssabab_dw.fact_user_ratings", column_order, params=[target_date])
 
 @task
-def insert_fact_user_tags_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_fact_user_votings(target_date: str = datetime.today().strftime('%Y-%m-%d')):
     query = """
-        SELECT user_id, food_id, tag_id, DATE(created_at) AS created_date
-        FROM food_tag_log
-        WHERE DATE(created_at) = %s
-    """
-    column_order = ["user_id", "food_id", "tag_id", "created_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_tags", column_order, params=[target_date])
-
-@task
-def insert_fact_user_pre_votes_data(target_date: str = datetime.today().strftime('%Y-%m-%d')):
-    query = """
-        SELECT user_id, food_id, DATE(created_at) AS vote_date
-        FROM food_vote
-        WHERE DATE(created_at) = %s
+        SELECT 
+            pv.user_id,
+            mf.food_id,
+            DATE(m.date) AS vote_date
+        FROM pre_vote pv
+        JOIN menu m ON pv.menu_id = m.menu_id
+        JOIN menu_food mf ON pv.menu_id = mf.menu_id
+        WHERE DATE(m.date) = %s
     """
     column_order = ["user_id", "food_id", "vote_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_pre_votes", column_order, params=[target_date])
+    fetch_and_insert(query, "ssabab_dw.fact_user_votings", column_order, params=[target_date])
+
+@task
+def insert_fact_user_comments(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+    query = """
+        SELECT 
+            user_id,
+            menu_id,
+            menu_comment,
+            DATE(timestamp) AS comment_date
+        FROM comment
+        WHERE DATE(timestamp) = %s
+    """
+    column_order = ["user_id", "menu_id", "menu_comment", "comment_date"]
+    fetch_and_insert(query, "ssabab_dw.fact_user_comments", column_order, params=[target_date])

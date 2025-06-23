@@ -53,7 +53,7 @@ dm_user_diversity_df = dm_all.unionByName(dm_gender).unionByName(dm_age)
 
 dm_user_diversity_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_group_comparison",
+    table="ssabab_dm.dm_user_group_comparison",
     mode="overwrite",
     properties=mysql_props
 )

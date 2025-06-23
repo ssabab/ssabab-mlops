@@ -42,7 +42,7 @@ tag_stats_df = tag_count_df.join(total_count_df, on="user_id", how="inner") \
 
 tag_stats_df.write.jdbc(
     url=mysql_url,
-    table="dm_user_tag_stats",
+    table="ssabab_dm.dm_user_tag_stats",
     mode="overwrite",
     properties=mysql_props
 )
