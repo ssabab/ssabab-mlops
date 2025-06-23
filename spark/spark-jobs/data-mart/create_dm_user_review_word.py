@@ -1,8 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode, split, lower, col, count as count_, avg as avg_, udf
-from pyspark.sql.types import FloatType
+from pyspark.sql.functions import explode, split, lower, col, count as count_
 from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
-from model.sentiment_model import predict_sentiment
 
 spark = SparkSession.builder.appName("create_dm_user_review_word").getOrCreate()
 
@@ -18,13 +16,8 @@ review_words_df = comment_df.select(
 
 word_filtered_df = review_words_df.filter(col("word") != "")
 
-predict_udf = udf(lambda word: float(predict_sentiment(word)), FloatType())
-
-review_with_sentiment_df = word_filtered_df.withColumn("sentiment_score", predict_udf(col("word")))
-
-dm_user_review_word_df = review_with_sentiment_df.groupBy("user_id", "word").agg(
-    count_("word").alias("count"),
-    avg_("sentiment_score").alias("sentiment_score")
+dm_user_review_word_df = word_filtered_df.groupBy("user_id", "word").agg(
+    count_("word").alias("count")
 )
 
 dm_user_review_word_df.write.jdbc(

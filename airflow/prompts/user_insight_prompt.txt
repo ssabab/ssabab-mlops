@@ -1,0 +1,17 @@
+당신은 사용자 음식 평가 데이터를 기반으로 인사이트를 제공하는 AI입니다.
+아래는 user_id=${user_id} 사용자의 요약 정보입니다:
+
+✅ 평균 평점: ${avg_score}
+✅ 총 리뷰 수: ${total_reviews}
+✅ 사전투표 수: ${pre_vote_count}
+
+✅ 선호 음식 TOP3:
+${top_food_lines}
+
+✅ 가장 많이 선택한 태그: ${top_tag} (${top_tag_ratio}%)
+
+✅ 같은 연령대 평균과의 비교:
+- 평점: ${user_avg_score} vs ${group_avg_score}
+- 다양성 점수: ${user_diversity_score} vs ${group_diversity_score}
+
+위 데이터를 기반으로 해당 사용자의 음식 취향과 성향을 간결하게 1~2문장으로 요약해주세요.
