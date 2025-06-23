@@ -130,7 +130,7 @@ def insert_fact_user_comments(target_date: str = datetime.today().strftime('%Y-%
             menu_id,
             menu_comment,
             DATE(timestamp) AS comment_date
-        FROM comment
+        FROM menu_review
         WHERE DATE(timestamp) = %s
     """
     column_order = ["user_id", "menu_id", "menu_comment", "comment_date"]

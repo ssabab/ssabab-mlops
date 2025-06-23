@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS ssabab_dw.dim_menu_food_combined (
     main_sub       ENUM('MAIN', 'SUB'),
     category_name  VARCHAR(50),
     tag_name       VARCHAR(50),
-    PRIMARY KEY (food_id, menu_id)
+    PRIMARY KEY (food_id, menu_id),
+    INDEX idx_menu_id (menu_id)
 );

@@ -61,9 +61,9 @@ with DAG(
         jars=JDBC_JAR_PATH,
     )
 
-    dm_user_diversity_comparison = SparkSubmitOperator(
-        task_id="create_dm_user_diversity_comparison",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_diversity_comparison.py",
+    dm_user_group_comparison = SparkSubmitOperator(
+        task_id="create_dm_user_group_comparison",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_group_comparison.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
         jars=JDBC_JAR_PATH,
@@ -77,20 +77,11 @@ with DAG(
         jars=JDBC_JAR_PATH,
     )
 
-    dm_user_insight = SparkSubmitOperator(
-        task_id="create_dm_user_insight",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_insight.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        jars=JDBC_JAR_PATH,
-    )
-
     start >> [
         dm_user_summary,
         dm_user_food_rating_rank,
         dm_user_category_stats,
         dm_user_tag_stats,
-        dm_user_diversity_comparison,
-        dm_user_review_word,
-        dm_user_insight
+        dm_user_group_comparison,
+        dm_user_review_word
     ] >> end

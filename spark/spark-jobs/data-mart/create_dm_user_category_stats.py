@@ -13,20 +13,13 @@ ratings_df = spark.read.jdbc(
     properties=mysql_props
 )
 
-food_df = spark.read.jdbc(
+menu_food_df = spark.read.jdbc(
     url=mysql_url,
-    table="ssabab_dw.dim_food",
+    table="ssabab_dw.dim_menu_food_combined",
     properties=mysql_props
 )
 
-category_df = spark.read.jdbc(
-    url=mysql_url,
-    table="ssabab_dw.dim_category",
-    properties=mysql_props
-)
-
-ratings_with_category_df = ratings_df.join(food_df, on="food_id", how="inner") \
-    .join(category_df, on="category_id", how="inner") \
+ratings_with_category_df = ratings_df.join(menu_food_df, on="food_id", how="inner") \
     .select("user_id", "category_name")
 
 category_count_df = ratings_with_category_df.groupBy("user_id", "category_name") \

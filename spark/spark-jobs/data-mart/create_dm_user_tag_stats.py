@@ -7,25 +7,22 @@ spark = SparkSession.builder.appName("create_dm_user_tag_stats").getOrCreate()
 mysql_url = get_mysql_jdbc_url()
 mysql_props = get_mysql_jdbc_properties()
 
-fact_user_tags_df = spark.read.jdbc(
+ratings_df = spark.read.jdbc(
     url=mysql_url,
-    table="ssabab_dw.fact_user_tags",
+    table="ssabab_dw.fact_user_ratings",
     properties=mysql_props
 )
 
-dim_tag_df = spark.read.jdbc(
+menu_food_df = spark.read.jdbc(
     url=mysql_url,
-    table="ssabab_dw.dim_tag",
+    table="ssabab_dw.dim_menu_food_combined",
     properties=mysql_props
 )
 
-user_tags_with_name_df = fact_user_tags_df.join(
-    dim_tag_df,
-    on="tag_id",
-    how="inner"
-).select("user_id", "tag_name")
+ratings_with_tags_df = ratings_df.join(menu_food_df, on="food_id", how="inner") \
+    .select("user_id", "tag_name")
 
-tag_count_df = user_tags_with_name_df.groupBy("user_id", "tag_name") \
+tag_count_df = ratings_with_tags_df.groupBy("user_id", "tag_name") \
     .agg(count_("*").alias("count"))
 
 total_count_df = tag_count_df.groupBy("user_id") \
