@@ -27,34 +27,70 @@ with DAG(
 ) as dag:
 
     start = DummyOperator(task_id="start")
-
-    dm_user_tag_preference = SparkSubmitOperator(
-        task_id="create_dm_user_category_tag_preference",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_category_tag_preference.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        jars=JDBC_JAR_PATH,
-        application_args=["2025-05-14"],
-    )
-
-    dm_user_rating_top_bottom = SparkSubmitOperator(
-        task_id="create_dm_user_rating_top_bottom",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_top_bottom.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        jars=JDBC_JAR_PATH,
-        application_args=["2025-05-14"],
-    )
-
-    dm_user_rating_score = SparkSubmitOperator(
-        task_id="create_dm_user_rating_iqr",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_rating_iqr.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        jars=JDBC_JAR_PATH,
-        application_args=["2025-05-14"],
-    )
-
     end = DummyOperator(task_id="end")
 
-    start >> [dm_user_tag_preference, dm_user_rating_top_bottom, dm_user_rating_score] >> end
+    dm_user_summary = SparkSubmitOperator(
+        task_id="create_dm_user_summary",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_summary.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_food_rating_rank = SparkSubmitOperator(
+        task_id="create_dm_user_food_rating_rank",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_food_rating_rank.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_category_stats = SparkSubmitOperator(
+        task_id="create_dm_user_category_stats",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_category_stats.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_tag_stats = SparkSubmitOperator(
+        task_id="create_dm_user_tag_stats",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_tag_stats.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_diversity_comparison = SparkSubmitOperator(
+        task_id="create_dm_user_diversity_comparison",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_diversity_comparison.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_review_word = SparkSubmitOperator(
+        task_id="create_dm_user_review_word",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_review_word.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    dm_user_insight = SparkSubmitOperator(
+        task_id="create_dm_user_insight",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_insight.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    start >> [
+        dm_user_summary,
+        dm_user_food_rating_rank,
+        dm_user_category_stats,
+        dm_user_tag_stats,
+        dm_user_diversity_comparison,
+        dm_user_review_word,
+        dm_user_insight
+    ] >> end
