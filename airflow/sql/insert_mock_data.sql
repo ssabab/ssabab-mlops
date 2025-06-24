@@ -1,45 +1,31 @@
--- account
 INSERT INTO account (
     user_id, password, provider, provider_id, username, email, role,
     created_at, updated_at, active, ssafy_year, class_num,
     ssafy_region, gender, age, profile_image_url, refresh_token
 ) VALUES
-(1, 'password123', 'kakao', 'kakao_1', '홍길동', 'hong@example.com', 'USER',
- CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1',
- '서울', 'M', 25, 'https://example.com/profiles/1.jpg', 'token_1'),
+(1, 'password123', 'kakao', 'kakao_1', 'test1', 'hong@example.com', 'USER',
+ CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1', '서울', 'M', 25, 'https://example.com/profiles/1.jpg', 'token_1'),
+(2, 'password456', 'kakao', 'kakao_2', 'test2', 'kim@example.com', 'USER',
+ CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '2', '서울', 'M', 24, 'https://example.com/profiles/2.jpg', 'token_2'),
+(3, 'password789', 'naver', 'naver_3', 'test3', 'lee@example.com', 'USER',
+ CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1', '대전', 'F', 23, 'https://example.com/profiles/3.jpg', 'token_3'),
+(4, 'password012', 'naver', 'naver_4', 'test4', 'park@example.com', 'USER',
+ CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '2', '광주', 'M', 24, 'https://example.com/profiles/4.jpg', 'token_4'),
+(5, 'password345', 'google', 'google_5', 'test5', 'choi@example.com', 'USER',
+ CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1', '구미', 'F', 22, 'https://example.com/profiles/5.jpg', 'token_5');
 
-(2, 'password456', 'kakao', 'kakao_2', '김철수', 'kim@example.com', 'USER',
- CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '2',
- '서울', 'M', 24, 'https://example.com/profiles/2.jpg', 'token_2'),
-
-(3, 'password789', 'naver', 'naver_3', '이영희', 'lee@example.com', 'USER',
- CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1',
- '대전', 'F', 23, 'https://example.com/profiles/3.jpg', 'token_3'),
-
-(4, 'password012', 'naver', 'naver_4', '박지성', 'park@example.com', 'USER',
- CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '2',
- '광주', 'M', 24, 'https://example.com/profiles/4.jpg', 'token_4'),
-
-(5, 'password345', 'google', 'google_5', '최유진', 'choi@example.com', 'USER',
- CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6), 1, '9', '1',
- '구미', 'F', 22, 'https://example.com/profiles/5.jpg', 'token_5');
-
-
--- food
 INSERT INTO food (food_id, food_name, main_sub, category, tag) VALUES
-(1, '제육볶음', '주메뉴', '한식', '고기'),
-(2, '김치찌개', '주메뉴', '한식', '국'),
-(3, '스테이크', '주메뉴', '양식', '고기'),
-(4, '파스타', '주메뉴', '양식', '면'),
-(5, '비빔밥', '주메뉴', '한식', '밥'),
-(6, '삼겹살', '주메뉴', '한식', '고기'),
-(7, '치킨', '주메뉴', '한식', '고기'),
-(8, '피자', '주메뉴', '양식', '고기'),
-(9, '햄버거', '주메뉴', '양식', '고기'),
-(10, '샐러드', '서브메뉴', '양식', '야채');
+(1, '제육볶음', 'main', '한식', '고기'),
+(2, '김치찌개', 'main', '한식', '국'),
+(3, '스테이크', 'main', '양식', '고기'),
+(4, '파스타', 'main', '양식', '면'),
+(5, '비빔밥', 'main', '한식', '밥'),
+(6, '삼겹살', 'main', '한식', '고기'),
+(7, '치킨', 'main', '한식', '고기'),
+(8, '피자', 'main', '양식', '고기'),
+(9, '햄버거', 'main', '양식', '고기'),
+(10, '샐러드', 'sub', '양식', '야채');
 
-
--- menu
 INSERT INTO menu (menu_id, date) VALUES
 (1, '2025-06-10'),
 (2, '2025-06-11'),
@@ -47,27 +33,20 @@ INSERT INTO menu (menu_id, date) VALUES
 (4, '2025-06-13'),
 (5, '2025-06-14');
 
--- menu_food
 INSERT INTO menu_food (menu_id, food_id) VALUES
-(1, 1),
-(1, 10),
-(2, 2),
-(2, 9),
-(3, 3),
-(3, 8),
-(4, 4),
-(4, 7),
-(5, 5),
-(5, 6);
+(1, 1), (1, 10),
+(2, 2), (2, 9),
+(3, 3), (3, 8),
+(4, 4), (4, 7),
+(5, 5), (5, 6);
 
--- menu_review
 INSERT INTO menu_review (id, user_id, menu_id, menu_score, menu_comment, timestamp) VALUES
 (1, 1, 1, 4.5, '맛있었어요!', CURRENT_TIMESTAMP),
 (2, 2, 2, 4.0, '좋았습니다.', CURRENT_TIMESTAMP),
 (3, 3, 3, 3.5, '괜찮았어요', CURRENT_TIMESTAMP),
-(4, 4, 4, 4.2, '기대했던 것보다 맛있었어요', CURRENT_TIMESTAMP)
+(4, 4, 4, 4.2, '기대했던 것보다 맛있었어요', CURRENT_TIMESTAMP),
+(5, 5, 5, 4.8, '최고였어요!', CURRENT_TIMESTAMP);
 
--- food_review
 INSERT INTO food_review (id, user_id, food_id, food_score, timestamp) VALUES
 (1, 1, 1, 5, CURRENT_TIMESTAMP),
 (2, 2, 2, 4, CURRENT_TIMESTAMP),
@@ -85,7 +64,6 @@ INSERT INTO food_review (id, user_id, food_id, food_score, timestamp) VALUES
 (14, 4, 6, 3, CURRENT_TIMESTAMP),
 (15, 5, 7, 4, CURRENT_TIMESTAMP);
 
--- pre_vote
 INSERT INTO pre_vote (pre_vote_id, menu_id, user_id) VALUES
 (1, 1, 1),
 (2, 2, 2),
@@ -93,8 +71,7 @@ INSERT INTO pre_vote (pre_vote_id, menu_id, user_id) VALUES
 (4, 4, 4),
 (5, 5, 5);
 
--- friend
-INSERT INTO friend (user_id, user_id) VALUES
+INSERT INTO friend (user_id, friend_id) VALUES
 (1, 2),
 (1, 3),
 (2, 3),

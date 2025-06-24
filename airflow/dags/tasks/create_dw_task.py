@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.decorators import task
 from airflow.utils.log.logging_mixin import LoggingMixin
 from utils.db import get_mysql_connection
@@ -98,7 +98,7 @@ def insert_dim_menu_food_combined():
     fetch_and_insert(query, "ssabab_dw.dim_menu_food_combined", column_order, insert_strategy="ignore")
 
 @task
-def insert_fact_user_ratings(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_fact_user_ratings(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
     query = """
         SELECT user_id, food_id, food_score, DATE(timestamp) AS rating_date
         FROM food_review
@@ -108,7 +108,7 @@ def insert_fact_user_ratings(target_date: str = datetime.today().strftime('%Y-%m
     fetch_and_insert(query, "ssabab_dw.fact_user_ratings", column_order, params=[target_date])
 
 @task
-def insert_fact_user_votings(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_fact_user_votings(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
     query = """
         SELECT 
             pv.user_id,
@@ -123,7 +123,7 @@ def insert_fact_user_votings(target_date: str = datetime.today().strftime('%Y-%m
     fetch_and_insert(query, "ssabab_dw.fact_user_votings", column_order, params=[target_date])
 
 @task
-def insert_fact_user_comments(target_date: str = datetime.today().strftime('%Y-%m-%d')):
+def insert_fact_user_comments(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
     query = """
         SELECT 
             user_id,
