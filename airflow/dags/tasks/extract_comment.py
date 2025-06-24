@@ -36,7 +36,7 @@ def extract_raw_user_review_word():
 
         words = [
             word for word, tag in result
-            if (tag == "Noun" or "Adjective") and word not in STOPWORDS
+            if tag in ("Noun", "Adjective") and word not in STOPWORDS
         ]
         print(f"comment: {text} → words: {words}")
 

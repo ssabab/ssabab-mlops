@@ -110,7 +110,10 @@ def generate_insight_chunk(user_id, user_data, tokenizer, model):
         top_p=0.95,
         temperature=0.7
     )
-    return tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+
+    input_len = inputs["input_ids"].shape[-1]
+    generated_text = outputs[0][input_len:]
+    return tokenizer.decode(generated_text, skip_special_tokens=True).strip()
 
 
 def save_user_insight(user_id, insight):
