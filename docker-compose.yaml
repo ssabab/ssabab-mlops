@@ -24,6 +24,7 @@ x-airflow-common: &airflow-common
     - ./airflow/config:/opt/airflow/config
     - ./airflow/plugins:/opt/airflow/plugins
     - ./airflow/sql:/opt/airflow/sql
+    - ./airflow/prompts:/opt/airflow/prompts
     - ./common:/opt/airflow/common
     - ./utils:/opt/airflow/utils
     - ./spark/spark-jobs:/opt/spark-jobs

@@ -69,19 +69,10 @@ with DAG(
         jars=JDBC_JAR_PATH,
     )
 
-    dm_user_review_word = SparkSubmitOperator(
-        task_id="create_dm_user_review_word",
-        application=f"{SPARK_PATH}/data-mart/create_dm_user_review_word.py",
-        conn_id="spark_default",
-        conf={"spark.executor.memory": "2g"},
-        jars=JDBC_JAR_PATH,
-    )
-
     start >> [
         dm_user_summary,
         dm_user_food_rating_rank,
         dm_user_category_stats,
         dm_user_tag_stats,
-        dm_user_group_comparison,
-        dm_user_review_word
+        dm_user_group_comparison
     ] >> end
