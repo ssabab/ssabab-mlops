@@ -50,7 +50,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_food_ranking.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_current_month()],
+        application_args=[get_previous_month()],
         jars=JDBC_JAR_PATH,
     )
 
@@ -59,7 +59,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_count.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_current_month()],
+        application_args=[get_previous_month()],
         jars=JDBC_JAR_PATH,
     )
 
@@ -68,7 +68,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_statistic.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_current_month()],
+        application_args=[get_previous_month()],
         jars=JDBC_JAR_PATH,
     )
 
@@ -77,7 +77,7 @@ with DAG(
         application=f"{SPARK_PATH}/data-mart/create_dm_monthly_frequent_evaluator.py",
         conn_id="spark_default",
         conf={"spark.executor.memory": "2g"},
-        application_args=[get_current_month()],
+        application_args=[get_previous_month()],
         jars=JDBC_JAR_PATH,
     )
     
