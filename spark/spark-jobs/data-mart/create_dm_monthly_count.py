@@ -92,7 +92,7 @@ def main():
     # 결과 저장
     result_df.write.jdbc(
         url=mysql_url,
-        table="ssabab_dm.monthly_count",
+        table="ssabab_dm.dm_monthly_count",
         mode="overwrite",
         properties=mysql_props
     )

@@ -83,7 +83,7 @@ def main():
     # 결과 저장
     result_df.write.jdbc(
         url=mysql_url,
-        table="ssabab_dm.monthly_frequent_evaluator",
+        table="ssabab_dm.dm_monthly_frequent_evaluator",
         mode="overwrite",
         properties=mysql_props
     )

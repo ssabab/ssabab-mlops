@@ -58,7 +58,7 @@ def main():
 
     result_df.write.jdbc(
         url=mysql_url,
-        table="ssabab_dm.monthly_food_ranking",
+        table="ssabab_dm.dm_monthly_food_ranking",
         mode="overwrite",
         properties=mysql_props
     )

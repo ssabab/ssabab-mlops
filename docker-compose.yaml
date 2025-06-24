@@ -28,6 +28,7 @@ x-airflow-common: &airflow-common
     - ./utils:/opt/airflow/utils
     - ./spark/spark-jobs:/opt/spark-jobs
     - ./spark/jars:/opt/spark-jars
+    - ./mlops:/opt/mlops
     - .env:/opt/.env 
   user: "${AIRFLOW_UID:-1000}:0"
   depends_on:
@@ -260,6 +261,26 @@ services:
   #     - kafka_data:/bitnami/kafka
   #   networks:
   #     - ssabab
+
+  mlflow:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.mlflow
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    command: >
+      mlflow server
+      --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE_MLFLOW}
+      --default-artifact-root /mlflow/artifacts
+      --host 0.0.0.0
+      --port 5000
+    volumes:
+      - ./mlops/mlflow/artifacts:/mlflow/artifacts
+    networks:
+      - ssabab
 
 volumes:
   postgres-db-volume:

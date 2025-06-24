@@ -44,7 +44,7 @@ def main():
     # 결과 저장
     stats_df.write.jdbc(
         url=mysql_url,
-        table="ssabab_dm.monthly_statistic",
+        table="ssabab_dm.dm_monthly_statistic",
         mode="overwrite",
         properties=mysql_props
     )
