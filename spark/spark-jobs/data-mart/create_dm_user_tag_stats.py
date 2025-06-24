@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import count as count_, col, round as round_, sum as sum_
+from pyspark.sql.functions import count as count_, col
 from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
 spark = SparkSession.builder.appName("create_dm_user_tag_stats").getOrCreate()
@@ -22,19 +22,12 @@ menu_food_df = spark.read.jdbc(
 ratings_with_tags_df = ratings_df.join(menu_food_df, on="food_id", how="inner") \
     .select("user_id", "tag_name")
 
-tag_count_df = ratings_with_tags_df.groupBy("user_id", "tag_name") \
-    .agg(count_("*").alias("count"))
-
-total_count_df = tag_count_df.groupBy("user_id") \
-    .agg(sum_("count").alias("total"))
-
-tag_stats_df = tag_count_df.join(total_count_df, on="user_id", how="inner") \
-    .withColumn("ratio", round_(col("count") / col("total"), 4)) \
+tag_stats_df = ratings_with_tags_df.groupBy("user_id", "tag_name") \
+    .agg(count_("*").alias("count")) \
     .select(
         col("user_id"),
         col("tag_name").alias("tag"),
-        col("count"),
-        col("ratio")
+        col("count")
     )
 
 tag_stats_df.write.jdbc(
