@@ -182,6 +182,3 @@ logs
 
 # Temporary file
 tmp.py
-
-# jar file
-spark/jars/*
