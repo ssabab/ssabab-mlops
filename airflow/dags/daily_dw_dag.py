@@ -4,7 +4,6 @@ from airflow.operators.dummy import DummyOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.task_group import TaskGroup
-
 from tasks.create_dw_task import *
 
 default_args = {
@@ -19,7 +18,7 @@ with DAG(
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-    description="AWS RDS → fact(SNAPSHOT) 기반 DW 적재 DAG",
+    description="AWS RDS → fact 기반 DW 적재 DAG",
     tags=["dw", "snapshot", "raw", "fact"],
 ) as dag:
 
@@ -27,19 +26,19 @@ with DAG(
 
     create_schema = create_tables_from_sql_files()
 
-    # TaskGroup 1: raw → dim
-    with TaskGroup("transform_raw_to_dim", tooltip="raw 테이블로부터 dimension 테이블 생성") as dim_group:
-        insert_dim_food_data()
-        insert_dim_user_data()
+    with TaskGroup("transform_raw_to_dim", tooltip="raw → dimension 테이블") as dim_group:
+        insert_dim_user()
+        insert_dim_menu_food_combined()
 
     dim_done = BashOperator(
         task_id="dim_insert_complete",
         bash_command='echo "Dimension 테이블 적재 완료"',
     )
 
-    # TaskGroup 2: raw → fact
-    with TaskGroup("transform_raw_to_fact", tooltip="raw 테이블로부터 fact 테이블 생성") as fact_group:
-        insert_fact_user_ratings_data()
+    with TaskGroup("transform_raw_to_fact", tooltip="raw → fact 테이블") as fact_group:
+        insert_fact_user_ratings()
+        insert_fact_user_votings()
+        insert_fact_user_comments()
 
     fact_done = BashOperator(
         task_id="fact_insert_complete",
@@ -52,5 +51,4 @@ with DAG(
         wait_for_completion=True,
     )
 
-    # Task dependency
     start >> create_schema >> dim_group >> dim_done >> fact_group >> fact_done >> trigger_report_dag
