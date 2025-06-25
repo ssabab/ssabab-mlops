@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.dummy import DummyOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from common.env_loader import load_env
 
 load_env()
@@ -77,11 +78,25 @@ with DAG(
         jars=JDBC_JAR_PATH,
     )
 
-    start >> [
-        dm_user_summary,
-        dm_user_food_rating_rank,
-        dm_user_category_stats,
-        dm_user_tag_stats,
-        dm_user_group_comparison,
-        dm_user_review_word
-    ] >> end
+    dm_user_insight = SparkSubmitOperator(
+        task_id="create_dm_user_insight",
+        application=f"{SPARK_PATH}/data-mart/create_dm_user_insight.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
+    )
+
+    (
+        start >>
+        [
+            dm_user_summary,
+            dm_user_food_rating_rank,
+            dm_user_category_stats,
+            dm_user_tag_stats,
+            dm_user_group_comparison,
+            dm_user_review_word,
+            dm_user_insight
+        ] >> 
+        end
+    )
+    

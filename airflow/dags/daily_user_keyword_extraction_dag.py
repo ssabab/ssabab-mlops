@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from datetime import datetime, timedelta
-from tasks.generate_insight import *
+from tasks.extract_comment import *
 
 default_args = {
     "owner": "airflow",
@@ -10,18 +10,16 @@ default_args = {
     "retry_delay": timedelta(minutes=3),
 }
 with DAG(
-    dag_id="daily_user_insight_dag",
+    dag_id="daily_user_keyword_extraction_dag",
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-    description="LLM 기반 사용자 인사이트 생성 DAG",
-    tags=["llm", "user", "insight"]
+    description="사용자 리뷰에서 명사 추출 및 요약 통계 DAG",
+    tags=["keyword", "user", "review"],
 ) as dag:
     start = DummyOperator(task_id="start")
     end = DummyOperator(task_id="end")
 
-    user_ids = fetch_user_ids()
-    insights = generate_user_insight_task(user_ids)
-    raw_insert = insert_raw_user_insight(insights)
+    raw_task = extract_raw_user_review_word()
 
-    start >> user_ids >> insights >> raw_insert >> end
+    start >> raw_task >> end

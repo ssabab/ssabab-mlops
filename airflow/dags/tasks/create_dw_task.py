@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from airflow.decorators import task
 from airflow.utils.log.logging_mixin import LoggingMixin
+from airflow.operators.python import get_current_context
 from utils.db import get_mysql_connection
 from common.env_loader import load_env
 
@@ -98,7 +99,10 @@ def insert_dim_menu_food_combined():
     fetch_and_insert(query, "ssabab_dw.dim_menu_food_combined", column_order, insert_strategy="ignore")
 
 @task
-def insert_fact_user_ratings(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
+def insert_fact_user_ratings():
+    context = get_current_context()
+    execution_date = context["execution_date"]
+    target_date = execution_date.format("YYYY-MM-DD")
     query = """
         SELECT user_id, food_id, food_score, DATE(timestamp) AS rating_date
         FROM food_review
@@ -108,7 +112,10 @@ def insert_fact_user_ratings(target_date: str = (datetime.today() - timedelta(da
     fetch_and_insert(query, "ssabab_dw.fact_user_ratings", column_order, params=[target_date])
 
 @task
-def insert_fact_user_votings(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
+def insert_fact_user_votings():
+    context = get_current_context()
+    execution_date = context["execution_date"]
+    target_date = execution_date.format("YYYY-MM-DD")
     query = """
         SELECT 
             pv.user_id,
@@ -123,7 +130,7 @@ def insert_fact_user_votings(target_date: str = (datetime.today() - timedelta(da
     fetch_and_insert(query, "ssabab_dw.fact_user_votings", column_order, params=[target_date])
 
 @task
-def insert_fact_user_comments(target_date: str = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')):
+def insert_fact_user_comments():
     query = """
         SELECT 
             user_id,
@@ -131,7 +138,6 @@ def insert_fact_user_comments(target_date: str = (datetime.today() - timedelta(d
             menu_comment,
             DATE(timestamp) AS comment_date
         FROM menu_review
-        WHERE DATE(timestamp) = %s
     """
     column_order = ["user_id", "menu_id", "menu_comment", "comment_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_comments", column_order, params=[target_date])
+    fetch_and_insert(query, "ssabab_dw.fact_user_comments", column_order)

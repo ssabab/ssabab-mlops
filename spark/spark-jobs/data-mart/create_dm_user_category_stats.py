@@ -22,19 +22,12 @@ menu_food_df = spark.read.jdbc(
 ratings_with_category_df = ratings_df.join(menu_food_df, on="food_id", how="inner") \
     .select("user_id", "category_name")
 
-category_count_df = ratings_with_category_df.groupBy("user_id", "category_name") \
-    .agg(count_("*").alias("count"))
-
-total_count_df = category_count_df.groupBy("user_id") \
-    .agg(sum_("count").alias("total"))
-
-category_stats_df = category_count_df.join(total_count_df, on="user_id", how="inner") \
-    .withColumn("ratio", round_(col("count") / col("total"), 4)) \
+category_stats_df = ratings_with_category_df.groupBy("user_id", "category_name") \
+    .agg(count_("*").alias("count")) \
     .select(
         col("user_id"),
         col("category_name").alias("category"),
-        col("count"),
-        col("ratio")
+        col("count")
     )
 
 category_stats_df.write.jdbc(

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS dm_food_ranking_monthly (
+CREATE TABLE IF NOT EXISTS ssabab_dm.dm_food_ranking_monthly (
     month DATE NOT NULL,                  -- 월 단위 (예: 2024-05-01)
     food_id INT NOT NULL,                 -- 음식 ID
     food_name TEXT,                       -- 음식 이름 (조회용)

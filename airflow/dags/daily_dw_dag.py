@@ -23,6 +23,7 @@ with DAG(
 ) as dag:
 
     start = DummyOperator(task_id="start")
+    end = DummyOperator(task_id="end")
 
     create_schema = create_tables_from_sql_files()
 
@@ -45,10 +46,26 @@ with DAG(
         bash_command='echo "Fact 테이블 적재 완료"',
     )
 
+    trigger_keyword_dag = TriggerDagRunOperator(
+        task_id="trigger_keyword_extraction_dag",
+        trigger_dag_id="daily_user_keyword_extraction_dag",
+        wait_for_completion=True,
+        reset_dag_run=True,
+        poke_interval=60
+    )
+
+    trigger_insight_dag = TriggerDagRunOperator(
+        task_id="trigger_user_insight_dag",
+        trigger_dag_id="daily_user_insight_dag",
+        wait_for_completion=True,
+        reset_dag_run=True,
+        poke_interval=60
+    )
+
     trigger_report_dag = TriggerDagRunOperator(
         task_id="trigger_daily_user_report_dag",
         trigger_dag_id="daily_user_report_dag",
         wait_for_completion=True,
     )
 
-    start >> create_schema >> dim_group >> dim_done >> fact_group >> fact_done >> trigger_report_dag
+    start >> create_schema >> dim_group >> dim_done >> fact_group >> fact_done >> [trigger_keyword_dag, trigger_insight_dag] >> trigger_report_dag >> end

@@ -34,3 +34,6 @@ accelerate==1.7.0
 # MLOps - FM
 scikit-learn
 mlflow
+
+# KoNLPy
+konlpy
