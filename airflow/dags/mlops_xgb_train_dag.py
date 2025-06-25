@@ -1,13 +1,20 @@
+import os
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.operators.dummy import DummyOperator
-from tasks.generate_csv import generate_csv_from_dm
-from tasks.train_xgb_model import train_xgb
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from tasks.train_xgb_model import *
+from common.env_loader import load_env
+
+load_env()
+
+SPARK_PATH = os.getenv("SPARK_PATH")
+JDBC_JAR_PATH = os.getenv("JDBC_JAR_PATH")
+
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2025, 6, 1),
+    "start_date": datetime(2025, 6, 23),
     "retries": 1,
     "retry_delay": timedelta(minutes=2),
 }
@@ -24,22 +31,17 @@ with DAG(
     start = DummyOperator(task_id="start")
     end = DummyOperator(task_id="end")
 
-    export_csv = PythonOperator(
-        task_id="generate_csv_from_dm",
-        python_callable=generate_csv_from_dm,
-        op_kwargs={"ds": "{{ ds }}"}
+    create_xgb_train_data = SparkSubmitOperator(
+        task_id="create_xgb_train_data",
+        application=f"{SPARK_PATH}/data-mart/create_xgb_train_data.py",
+        conn_id="spark_default",
+        conf={"spark.executor.memory": "2g"},
+        jars=JDBC_JAR_PATH,
     )
 
-    train_model = PythonOperator(
-        task_id="train_xgb_model",
-        python_callable=train_xgb,
-        op_kwargs={"ds": "{{ ds }}"}
-    )
+    generate_train_data = generate_xgb_train_csv()
+    train_model = train_xgb_model()
 
-    predict = PythonOperator(
-        task_id="predict_ab_menu",
-        python_callable=predict_ab_menu,
-        op_kwargs={"ds": "{{ ds }}"}
-    )
+    validate_model = DummyOperator(task_id="validate_model")
 
-    start >> export_csv >> train_model >> predict >> end
+    start >> create_xgb_train_data >> generate_train_data >> train_model >> validate_model >> end
