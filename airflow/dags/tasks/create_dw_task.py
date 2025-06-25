@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from datetime import datetime, timedelta
 from airflow.decorators import task
 from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.operators.python import get_current_context
@@ -13,12 +12,12 @@ SQL_PATH = os.getenv("SQL_PATH")
 ALLOWED_TABLES = {
     "ssabab_dw.dim_user",
     "ssabab_dw.dim_menu_food_combined",
-    "ssabab_dw.fact_user_ratings",
-    "ssabab_dw.fact_user_votings",
-    "ssabab_dw.fact_user_comments",
+    "ssabab_dw.fact_user_food_feedback",
+    "ssabab_dw.fact_user_menu_feedback",
 }
 
 log = LoggingMixin().log
+
 
 def fetch_and_insert(query, target_table, column_order, params=None, insert_strategy="append"):
     if target_table not in ALLOWED_TABLES:
@@ -43,6 +42,7 @@ def fetch_and_insert(query, target_table, column_order, params=None, insert_stra
                 cur.execute(sql, values)
         conn.commit()
         log.info(f"Inserted {len(df)} rows into `{target_table}` using strategy '{insert_strategy}'.")
+
 
 @task
 def create_tables_from_sql_files():
@@ -80,6 +80,7 @@ def insert_dim_user():
     column_order = ["user_id", "gender", "birth_year", "ssafy_class", "region"]
     fetch_and_insert(query, "ssabab_dw.dim_user", column_order, insert_strategy="ignore")
 
+
 @task
 def insert_dim_menu_food_combined():
     query = """
@@ -98,46 +99,40 @@ def insert_dim_menu_food_combined():
     column_order = ["food_id", "food_name", "main_sub", "category_name", "tag_name", "menu_id", "menu_date"]
     fetch_and_insert(query, "ssabab_dw.dim_menu_food_combined", column_order, insert_strategy="ignore")
 
+
 @task
-def insert_fact_user_ratings():
+def insert_fact_user_food_feedback():
     context = get_current_context()
-    execution_date = context["execution_date"]
-    target_date = execution_date.format("YYYY-MM-DD")
+    execution_date = context["execution_date"].format("YYYY-MM-DD")
     query = """
         SELECT user_id, food_id, food_score, DATE(timestamp) AS rating_date
         FROM food_review
         WHERE DATE(timestamp) = %s
     """
     column_order = ["user_id", "food_id", "food_score", "rating_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_ratings", column_order, params=[target_date])
+    fetch_and_insert(query, "ssabab_dw.fact_user_food_feedback", column_order, params=[execution_date])
+
 
 @task
-def insert_fact_user_votings():
+def insert_fact_user_menu_feedback():
     context = get_current_context()
-    execution_date = context["execution_date"]
-    target_date = execution_date.format("YYYY-MM-DD")
+    execution_date = context["execution_date"].format("YYYY-MM-DD")
     query = """
         SELECT 
-            pv.user_id,
-            mf.food_id,
-            DATE(m.date) AS vote_date
-        FROM pre_vote pv
-        JOIN menu m ON pv.menu_id = m.menu_id
-        JOIN menu_food mf ON pv.menu_id = mf.menu_id
-        WHERE DATE(m.date) = %s
+            mr.user_id,
+            mr.menu_id,
+            mr.menu_score,
+            mr.menu_regret,
+            mr.menu_comment,
+            CASE 
+                WHEN pv.pre_vote_id IS NOT NULL THEN 1
+                ELSE 0
+            END AS pre_vote,
+            DATE(mr.timestamp) AS comment_date
+        FROM menu_review mr
+        LEFT JOIN pre_vote pv
+            ON mr.user_id = pv.user_id AND mr.menu_id = pv.menu_id
+        WHERE DATE(mr.timestamp) = %s
     """
-    column_order = ["user_id", "food_id", "vote_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_votings", column_order, params=[target_date])
-
-@task
-def insert_fact_user_comments():
-    query = """
-        SELECT 
-            user_id,
-            menu_id,
-            menu_comment,
-            DATE(timestamp) AS comment_date
-        FROM menu_review
-    """
-    column_order = ["user_id", "menu_id", "menu_comment", "comment_date"]
-    fetch_and_insert(query, "ssabab_dw.fact_user_comments", column_order)
+    column_order = ["user_id", "menu_id", "menu_score", "menu_regret", "menu_comment", "pre_vote", "comment_date"]
+    fetch_and_insert(query, "ssabab_dw.fact_user_menu_feedback", column_order, params=[execution_date])

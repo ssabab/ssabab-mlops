@@ -37,9 +37,8 @@ with DAG(
     )
 
     with TaskGroup("transform_raw_to_fact", tooltip="raw → fact 테이블") as fact_group:
-        insert_fact_user_ratings()
-        insert_fact_user_votings()
-        insert_fact_user_comments()
+        insert_fact_user_food_feedback()
+        insert_fact_user_menu_feedback()
 
     fact_done = BashOperator(
         task_id="fact_insert_complete",

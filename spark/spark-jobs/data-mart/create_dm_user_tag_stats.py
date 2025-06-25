@@ -9,7 +9,7 @@ mysql_props = get_mysql_jdbc_properties()
 
 ratings_df = spark.read.jdbc(
     url=mysql_url,
-    table="ssabab_dw.fact_user_ratings",
+    table="ssabab_dw.fact_user_food_feedback",
     properties=mysql_props
 )
 
