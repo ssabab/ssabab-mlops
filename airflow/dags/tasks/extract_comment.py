@@ -18,7 +18,7 @@ def extract_raw_user_review_word():
     conn = get_mysql_connection()
     query = """
         SELECT user_id, menu_comment, comment_date 
-        FROM ssabab_dw.fact_user_comments
+        FROM ssabab_dw.fact_user_menu_feedback
     """
     df = pd.read_sql(query, conn)
     conn.close()

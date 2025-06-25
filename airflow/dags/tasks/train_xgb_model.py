@@ -13,19 +13,25 @@ from common.env_loader import load_env
 
 load_env()
 
-model_name = "xgb"
-csv_path = f"/opt/airflow/artifacts/data/train_{execution_date}.csv"
-model_path = f"/opt/airflow/artifacts/model/{model_name}_model_{execution_date}.bin"
-config_path = "/opt/airflow/configs/xgb_config.yaml"
+XGB_MODEL_NAME = os.getenv("MODEL__XGB__NAME")
+XGB_CONFIG_PATH = os.getenv("MODEL__XGB__CONFIG_PATH")
+XGB_ARTIFACT_DATA_DIR = os.getenv("MODEL__XGB__ARTIFACT_DATA_DIR")
+XGB_ARTIFACT_MODEL_DIR = os.getenv("MODEL__XGB__ARTIFACT_MODEL_DIR")
+
+def get_csv_path(execution_date: str) -> str:
+    return os.path.join(XGB_ARTIFACT_DATA_DIR, f"{XGB_MODEL_NAME}_train_{execution_date}.csv")
+
+def get_model_path(execution_date: str) -> str:
+    return os.path.join(XGB_ARTIFACT_MODEL_DIR, f"{XGB_MODEL_NAME}_model_{execution_date}.bin")
+
 
 @task
 def generate_xgb_train_csv():
     context = get_current_context()
     execution_date = context["execution_date"].format("YYYY-MM-DD")
-    
-    csv_dir = "/opt/airflow/artifacts/data"
-    os.makedirs(csv_dir, exist_ok=True)
-    csv_path = os.path.join(csv_dir, f"xgb_train_{execution_date}.csv")
+
+    csv_path = get_csv_path(execution_date)
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
 
     engine = sqlalchemy.create_engine(get_mysql_sqlalchemy_url())
     query = f"""
@@ -41,6 +47,11 @@ def generate_xgb_train_csv():
 def train_xgb_model():
     context = get_current_context()
     execution_date = context["execution_date"].format("YYYY-MM-DD")
+
+    csv_path = get_csv_path(execution_date)
+    model_path = get_model_path(execution_date)
+    config_path = XGB_CONFIG_PATH
+    model_name = XGB_MODEL_NAME
 
     df = pd.read_csv(csv_path)
     X = df.drop(columns=["label", "user_id", "train_date"])
@@ -65,3 +76,4 @@ def train_xgb_model():
         mlflow.log_artifact(csv_path, artifact_path="data")
         mlflow.log_artifact(model_path, artifact_path="model")
         mlflow.log_artifact(config_path, artifact_path="config")
+        
