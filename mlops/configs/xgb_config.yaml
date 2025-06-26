@@ -1,0 +1,8 @@
+n_estimators: 120
+max_depth: 6
+learning_rate: 0.05
+subsample: 0.8
+colsample_bytree: 0.8
+reg_alpha: 0.01
+reg_lambda: 1.0
+use_label_encoder: false

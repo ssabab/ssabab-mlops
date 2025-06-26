@@ -15,7 +15,7 @@ PROMPT_PATH = os.getenv("PROMPT_PATH")
 
 @task
 def fetch_user_ids():
-    query = "SELECT DISTINCT user_id FROM ssabab_dw.fact_user_ratings"
+    query = "SELECT DISTINCT user_id FROM ssabab_dw.fact_user_food_feedback"
     conn = get_mysql_connection()
     try:
         with conn.cursor() as cursor:
@@ -48,7 +48,7 @@ def load_user_data_task(user_id):
             top_tag = cursor.fetchone()
 
             cursor.execute("""
-                SELECT category AS category, count
+                SELECT category, count
                 FROM ssabab_dm.dm_user_category_stats
                 WHERE user_id = %s
                 ORDER BY count DESC

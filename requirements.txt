@@ -13,10 +13,8 @@ kafka-python
 # Spark
 pyspark==3.5.4
 
-# MySQL
+# Database
 pymysql
-
-# PostgreSQL
 psycopg2-binary==2.9.9
 
 # env
@@ -30,10 +28,13 @@ requests==2.31.0
 # LLM
 transformers==4.52.4
 accelerate==1.7.0
+konlpy
 
 # MLOps - FM
 scikit-learn
 mlflow
 
-# KoNLPy
-konlpy
+# MLOps - XGBoost
+xgboost==1.7.6
+PyYAML==6.0.1
+joblib==1.4.2

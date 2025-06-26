@@ -7,7 +7,7 @@ spark = SparkSession.builder.appName("create_dm_user_group_comparison").getOrCre
 mysql_url = get_mysql_jdbc_url()
 mysql_props = get_mysql_jdbc_properties()
 
-ratings_df = spark.read.jdbc(mysql_url, "ssabab_dw.fact_user_ratings", properties=mysql_props)
+ratings_df = spark.read.jdbc(mysql_url, "ssabab_dw.fact_user_food_feedback", properties=mysql_props)
 food_df = spark.read.jdbc(mysql_url, "ssabab_dw.dim_menu_food_combined", properties=mysql_props)
 user_df = spark.read.jdbc(mysql_url, "ssabab_dw.dim_user", properties=mysql_props)
 

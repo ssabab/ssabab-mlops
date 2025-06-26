@@ -1,5 +1,5 @@
 import os
-from datetime import timedelta
+from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.dummy import DummyOperator
@@ -13,21 +13,17 @@ SPARK_PATH = os.getenv("SPARK_PATH")
 JDBC_JAR_PATH = os.getenv("JDBC_JAR_PATH")
 
 default_args = {
-    'owner': 'airflow',
-    'depends_on_past': False,
-    'email_on_failure': False,
-    'email_on_retry': False,
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    "owner": "airflow",
+    "start_date": datetime(2025, 6, 1),
+    "retries": 1,
+    "retry_delay": timedelta(minutes=2),
 }
-
 with DAG(
-    'mlops_fm_data_dag',
+    dag_id="mlops_fm_data_dag",
     default_args=default_args,
-    description='MLOps for food menu comparison',
-    schedule_interval='0 21 * * *',
-    start_date=days_ago(1),
+    schedule_interval="0 21 * * *",
     catchup=False,
+    description='MLOps for food menu comparison',
     tags=['mlops', 'food_menu_comparison'],
 ) as dag:
     start = DummyOperator(task_id="start")

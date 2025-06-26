@@ -13,7 +13,7 @@ INSERT INTO food_review (id, user_id, food_id, food_score, timestamp) VALUES
 INSERT INTO pre_vote (pre_vote_id, menu_id, user_id) VALUES
 (4, 1, 9);
 
-INSERT INTO ssabab_dw.fact_user_ratings (user_id, food_id, food_score, rating_date) VALUES
+INSERT INTO ssabab_dw.fact_user_food_feedback (user_id, food_id, food_score, rating_date) VALUES
 (9, 7, 4.5, '2025-06-23'),
 (9, 8, 5, '2025-06-23'),
 (9, 9, 2.5, '2025-06-23'),

@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import count as count_, col, round as round_, sum as sum_
+from pyspark.sql.functions import count as count_, col
 from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
 spark = SparkSession.builder.appName("create_dm_user_category_stats").getOrCreate()
@@ -9,7 +9,7 @@ mysql_props = get_mysql_jdbc_properties()
 
 ratings_df = spark.read.jdbc(
     url=mysql_url,
-    table="ssabab_dw.fact_user_ratings",
+    table="ssabab_dw.fact_user_food_feedback",
     properties=mysql_props
 )
 
