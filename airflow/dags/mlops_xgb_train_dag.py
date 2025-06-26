@@ -31,6 +31,8 @@ with DAG(
     start = DummyOperator(task_id="start")
     end = DummyOperator(task_id="end")
 
+    check_menu = check_menu_count() 
+
     create_xgb_train_data = SparkSubmitOperator(
         task_id="create_xgb_train_data",
         application=f"{SPARK_PATH}/data-mart/create_xgb_train_data.py",
@@ -44,4 +46,4 @@ with DAG(
 
     validate_model = DummyOperator(task_id="validate_model")
 
-    start >> create_xgb_train_data >> generate_train_data >> train_model >> validate_model >> end
+    start >> check_menu >> create_xgb_train_data >> generate_train_data >> train_model >> validate_model >> end
