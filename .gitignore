@@ -182,3 +182,13 @@ logs
 
 # Temporary file
 tmp.py
+
+# jars
+*.jar
+
+# Prompt
+prompts/
+
+# MLflow
+configs/
+experiments/

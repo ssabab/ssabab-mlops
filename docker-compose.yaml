@@ -29,7 +29,8 @@ x-airflow-common: &airflow-common
     - ./utils:/opt/airflow/utils
     - ./spark/spark-jobs:/opt/spark-jobs
     - ./spark/jars:/opt/spark-jars
-    - ./mlops:/opt/mlops
+    - ./mlops/experiments:/opt/mlops/experiments
+    - ./mlops/configs:/opt/mlops/configs
     - .env:/opt/.env 
   user: "${AIRFLOW_UID:-1000}:0"
   depends_on:
@@ -275,11 +276,12 @@ services:
     command: >
       mlflow server
       --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE_MLFLOW}
-      --default-artifact-root /mlflow/artifacts
+      --default-artifact-root /opt/mlops/experiments
       --host 0.0.0.0
       --port 5000
     volumes:
-      - ./mlops/mlflow/artifacts:/mlflow/artifacts
+      - ./mlops/experiments:/opt/mlops/experiments
+      - ./mlops/configs:/opt/mlops/configs
     networks:
       - ssabab
 
