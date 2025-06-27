@@ -27,6 +27,8 @@ with DAG(
 
     create_schema = create_tables_from_sql_files()
 
+    execution_log = print_execution_date()
+
     with TaskGroup("transform_raw_to_dim", tooltip="raw → dimension 테이블") as dim_group:
         insert_dim_user()
         insert_dim_menu_food_combined()
@@ -67,4 +69,4 @@ with DAG(
         wait_for_completion=True,
     )
 
-    start >> create_schema >> dim_group >> dim_done >> fact_group >> fact_done >> [trigger_keyword_dag, trigger_insight_dag] >> trigger_report_dag >> end
+    start >> create_schema >> execution_log >> dim_group >> dim_done >> fact_group >> fact_done >> [trigger_keyword_dag, trigger_insight_dag] >> trigger_report_dag >> end
