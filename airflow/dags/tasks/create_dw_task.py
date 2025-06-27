@@ -19,6 +19,13 @@ ALLOWED_TABLES = {
 log = LoggingMixin().log
 
 
+@task
+def print_execution_date():
+    context = get_current_context()
+    execution_date = context["execution_date"].strftime("%Y-%m-%d")
+    print(f"execution_date: {execution_date}")
+
+
 def fetch_and_insert(query, target_table, column_order, params=None, insert_strategy="append"):
     if target_table not in ALLOWED_TABLES:
         raise ValueError(f"Invalid table name: {target_table}")
