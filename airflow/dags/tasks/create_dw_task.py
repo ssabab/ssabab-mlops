@@ -22,7 +22,7 @@ log = LoggingMixin().log
 @task
 def print_execution_date():
     context = get_current_context()
-    execution_date = context["execution_date"].strftime("%Y-%m-%d")
+    execution_date = context["execution_date"].format("%Y-%m-%d")
     print(f"execution_date: {execution_date}")
 
 
@@ -78,7 +78,7 @@ def insert_dim_user():
     query = """
         SELECT 
             user_id,
-            gender,
+            LOWER(gender) AS gender,
             YEAR(birth_date) AS birth_year,
             CONCAT(ssafy_year, '-', class_num) AS ssafy_class,
             ssafy_region AS region
@@ -92,18 +92,22 @@ def insert_dim_user():
 def insert_dim_menu_food_combined():
     query = """
         SELECT 
+            mf.menu_id,
+            m.date AS menu_date,
             mf.food_id,
             f.food_name,
-            f.main_sub,
+            CASE 
+                WHEN f.main_sub = '주메뉴' THEN 'main'
+                WHEN f.main_sub = '서브메뉴' THEN 'sub'
+                ELSE 'etc'
+            END AS main_sub,
             f.category AS category_name,
-            f.tag AS tag_name,
-            mf.menu_id,
-            m.date AS menu_date
+            f.tag AS tag_name
         FROM menu_food mf
         JOIN food f ON mf.food_id = f.food_id
         JOIN menu m ON mf.menu_id = m.menu_id
     """
-    column_order = ["food_id", "food_name", "main_sub", "category_name", "tag_name", "menu_id", "menu_date"]
+    column_order = ["menu_id", "menu_date", "food_id", "food_name", "main_sub", "category_name", "tag_name"]
     fetch_and_insert(query, "ssabab_dw.dim_menu_food_combined", column_order, insert_strategy="ignore")
 
 
