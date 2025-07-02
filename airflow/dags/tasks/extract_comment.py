@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 import pandas as pd
 from konlpy.tag import Okt
 from airflow.decorators import task
@@ -30,7 +30,8 @@ def fetch_review_df():
 def parse_nouns(json_str: str):
     df = pd.read_json(json_str)
     okt = Okt()
-    records = []
+    
+    merged_counter = defaultdict(int)
 
     for _, row in df.iterrows():
         if pd.isnull(row["menu_comment"]):
@@ -41,17 +42,23 @@ def parse_nouns(json_str: str):
 
         words = [
             word for word, tag in pos_result
-            if tag in ("Noun", "Adjective") and word not in STOPWORDS
+            if tag in ("Noun", "Adjective") and word not in STOPWORDS and len(word) > 1
         ]
 
         counter = Counter(words)
         for word, count in counter.items():
-            records.append({
-                "user_id": row["user_id"],
-                "word": word,
-                "comment_date": row["comment_date"],
-                "count": count
-            })
+            key = (row["user_id"], word, row["comment_date"])
+            merged_counter[key] += count
+
+    records = [
+        {
+            "user_id": user_id,
+            "word": word,
+            "comment_date": comment_date,
+            "count": count
+        }
+        for (user_id, word, comment_date), count in merged_counter.items()
+    ]
 
     return json.dumps(records, ensure_ascii=False)
 

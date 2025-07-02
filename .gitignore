@@ -187,7 +187,7 @@ tmp.py
 *.jar
 
 # Prompt
-prompts/
+airflow/prompts/
 
 # MLflow
 configs/

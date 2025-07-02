@@ -1,5 +1,5 @@
 INSERT INTO menu (menu_id, date) VALUES
-(1, '2025-06-25'), (2, '2025-06-25'), (3, '2025-06-26'), (4, '2025-06-26'), (5, '2025-06-27'), (6, '2025-06-27');
+(1, CURRENT_DATE - INTERVAL 2 DAY), (2, CURRENT_DATE - INTERVAL 2 DAY), (3, CURRENT_DATE - INTERVAL 1 DAY), (4, CURRENT_DATE - INTERVAL 1 DAY), (5, CURRENT_DATE), (6, CURRENT_DATE);
 
 INSERT INTO menu_food (menu_id, food_id) VALUES
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
@@ -10,45 +10,77 @@ INSERT INTO menu_food (menu_id, food_id) VALUES
 (6, 31), (6, 32), (6, 33), (6, 34), (6, 35), (6, 36);
 
 INSERT INTO menu_review (id, user_id, menu_id, menu_score, menu_regret, menu_comment, timestamp) VALUES
-(1, 9, 1, 3.5, 0, '기대했던 것보다 맛있었어요', '2025-06-25'),
-(2, 9, 4, 4.0, 0, '개 맛도리', '2025-06-26'),
-(3, 9, 5, 1.0, 1, '우웩, 너무 별로입니다.', '2025-06-27');
-
+(1, 9, 1, 3.5, 0, '기대했던 것보다 맛있었어요', CURRENT_DATE),
+(2, 9, 4, 4.0, 0, '개 맛도리', CURRENT_DATE),
+(3, 9, 5, 1.0, 1, '우웩, 너무 별로입니다.', CURRENT_DATE),
+(4, 10, 1, 3.5, 0, '좀;;; 그렇네; ㅡㅡ', CURRENT_DATE),
+(5, 10, 4, 4.0, 0, '', CURRENT_DATE),
+(6, 10, 5, 3.0, 1, '그저그렇네요', CURRENT_DATE),
+(7, 11, 1, 4.5, 0, '맛 나 요', CURRENT_DATE),
+(8, 11, 4, 2.0, 0, '흠....', CURRENT_DATE),
+(9, 11, 5, 3.0, 1, '쏘쏘 입니다.', CURRENT_DATE);
 
 INSERT INTO food_review (id, user_id, food_id, food_score, timestamp) VALUES
-(1, 9, 1, 4.5, '2025-06-25'),
-(2, 9, 2, 5, '2025-06-25'),
-(3, 9, 3, 2.5, '2025-06-25'),
-(4, 9, 4, 1, '2025-06-25'),
-(5, 9, 5, 1.5, '2025-06-25'),
-(6, 9, 6, 3, '2025-06-25'),
-(7, 9, 25, 4.5, '2025-06-26'),
-(8, 9, 26, 5, '2025-06-26'),
-(9, 9, 27, 4, '2025-06-26'),
-(10, 9, 28, 5, '2025-06-26'),
-(11, 9, 29, 3.5, '2025-06-26'),
-(12, 9, 30, 3.5, '2025-06-26'),
-(13, 9, 25, 2, '2025-06-27'),
-(14, 9, 26, 1, '2025-06-27'),
-(15, 9, 27, 1.5, '2025-06-27'),
-(16, 9, 28, 2.5, '2025-06-27'),
-(17, 9, 29, 2, '2025-06-27'),
-(18, 9, 30, 3, '2025-06-27');
+(1, 9, 25, 2, CURRENT_DATE),
+(2, 9, 26, 1, CURRENT_DATE),
+(3, 9, 27, 1.5, CURRENT_DATE),
+(4, 9, 28, 2.5, CURRENT_DATE),
+(5, 9, 29, 2, CURRENT_DATE),
+(6, 9, 30, 3, CURRENT_DATE),
+
+(7, 10, 25, 5, CURRENT_DATE),
+(8, 10, 26, 5, CURRENT_DATE),
+(9, 10, 27, 5, CURRENT_DATE),
+(10, 10, 28, 5, CURRENT_DATE),
+(11, 10, 29, 5, CURRENT_DATE),
+(12, 10, 30, 5, CURRENT_DATE),
+
+(13, 11, 25, 1, CURRENT_DATE),
+(14, 11, 26, 1, CURRENT_DATE),
+(15, 11, 27, 1, CURRENT_DATE),
+(16, 11, 28, 1, CURRENT_DATE),
+(17, 11, 29, 1, CURRENT_DATE),
+(18, 11, 30, 1, CURRENT_DATE);
 
 INSERT INTO pre_vote (pre_vote_id, menu_id, user_id) VALUES
-(1, 1, 9), (2, 4, 9), (3, 5, 9);
+(1, 1, 9), (2, 4, 9), (3, 5, 9), (4, 2, 10), (5, 4, 10), (6, 5, 10), (7, 1, 11), (8, 3, 11), (9, 5, 11);
 
 INSERT INTO ssabab_dw.fact_user_food_feedback (user_id, food_id, food_score, rating_date) VALUES
-(9, 1, 4.5, '2025-06-25'),
-(9, 2, 5, '2025-06-25'),
-(9, 3, 2.5, '2025-06-25'),
-(9, 4, 1, '2025-06-25'),
-(9, 5, 1.5, '2025-06-25'),
-(9, 6, 3, '2025-06-25'),
+(9, 1, 4.5, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 2, 5, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 3, 2.5, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 4, 1, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 5, 1.5, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 6, 3, CURRENT_DATE - INTERVAL 2 DAY),
+(9, 19, 4.5, CURRENT_DATE - INTERVAL 1 DAY),
+(9, 20, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(9, 21, 4, CURRENT_DATE - INTERVAL 1 DAY),
+(9, 22, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(9, 23, 3.5, CURRENT_DATE - INTERVAL 1 DAY),
+(9, 24, 3.5, CURRENT_DATE - INTERVAL 1 DAY),
 
-(9, 19, 4.5, '2025-06-26'),
-(9, 20, 5, '2025-06-26'),
-(9, 21, 4, '2025-06-26'),
-(9, 22, 5, '2025-06-26'),
-(9, 23, 3.5, '2025-06-26'),
-(9, 24, 3.5, '2025-06-26');
+(10, 7, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 8, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 9, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 10, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 11, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 12, 4, CURRENT_DATE - INTERVAL 2 DAY),
+(10, 19, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(10, 20, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(10, 21, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(10, 22, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(10, 23, 5, CURRENT_DATE - INTERVAL 1 DAY),
+(10, 24, 5, CURRENT_DATE - INTERVAL 1 DAY),
+
+(11, 1, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 2, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 3, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 4, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 5, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 6, 2, CURRENT_DATE - INTERVAL 2 DAY),
+(11, 13, 1, CURRENT_DATE - INTERVAL 1 DAY),
+(11, 14, 1, CURRENT_DATE - INTERVAL 1 DAY),
+(11, 15, 1, CURRENT_DATE - INTERVAL 1 DAY),
+(11, 16, 1, CURRENT_DATE - INTERVAL 1 DAY),
+(11, 17, 1, CURRENT_DATE - INTERVAL 1 DAY),
+(11, 18, 1, CURRENT_DATE - INTERVAL 1 DAY);
