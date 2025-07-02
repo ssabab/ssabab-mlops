@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from airflow import DAG
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.operators.dummy import DummyOperator
@@ -12,15 +12,12 @@ JDBC_JAR_PATH = os.getenv("JDBC_JAR_PATH")
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2025, 5, 1),
-    "retries": 1,
-    "retry_delay": timedelta(minutes=3),
+    "start_date": datetime(2025, 5, 1)
 }
-
 with DAG(
     dag_id="daily_user_report_dag",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval=None,
     catchup=False,
     description="매일 자정 사용자 분석용 데이터 마트 생성 DAG",
     tags=["dm", "user", "daily"],

@@ -5,7 +5,6 @@ from pyspark.sql.functions import col, collect_set, when, udf, lit, avg
 from pyspark.sql.types import IntegerType
 from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
-
 train_date = sys.argv[1] if len(sys.argv) > 1 else datetime.today().date()
 
 spark = SparkSession.builder.appName("generate_xgb_train_data").getOrCreate()
@@ -86,20 +85,17 @@ df = user_pref \
 
 df = df.join(users.select("user_id", "gender", "birth_year"), "user_id", "left")
 df = df.withColumn("user_gender", col("gender")) \
-        .withColumn("user_age", lit(2025) - col("birth_year"))
+       .withColumn("user_age", lit(2025) - col("birth_year"))
 
 
 label_df = menu_feed.filter(
     col("menu_score").isNotNull() &
     col("menu_id").isin([A_menu_id, B_menu_id])
 ).withColumn("user_choice", when(col("menu_id") == B_menu_id, 1).otherwise(0)) \
- .select("user_id", "user_choice", "menu_regret", "pre_voted")
-
+ .select("user_id", "user_choice", "menu_regret", "pre_vote")
 
 df = df.join(label_df, "user_id", "inner") \
        .withColumn("train_date", lit(train_date)) \
-       .withColumn("menu_regret", col("menu_regret").cast("boolean")) \
-       .withColumn("pre_voted", col("pre_voted").cast("boolean")) \
        .drop("gender", "birth_year", "user_tags", "user_cats")
 
 
