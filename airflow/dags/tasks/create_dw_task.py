@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from airflow.decorators import task
-from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.operators.python import get_current_context
 from utils.db import get_mysql_connection
 from common.env_loader import load_env
@@ -16,13 +15,11 @@ ALLOWED_TABLES = {
     "ssabab_dw.fact_user_menu_feedback",
 }
 
-log = LoggingMixin().log
-
 
 @task
 def print_execution_date():
     context = get_current_context()
-    execution_date = context["execution_date"].format("%Y-%m-%d")
+    execution_date = context["execution_date"].format("YYYY-MM-DD")
     print(f"execution_date: {execution_date}")
 
 
@@ -48,7 +45,7 @@ def fetch_and_insert(query, target_table, column_order, params=None, insert_stra
 
                 cur.execute(sql, values)
         conn.commit()
-        log.info(f"Inserted {len(df)} rows into `{target_table}` using strategy '{insert_strategy}'.")
+        print(f"Inserted {len(df)} rows into `{target_table}` using strategy '{insert_strategy}'.")
 
 
 @task
@@ -65,12 +62,12 @@ def create_tables_from_sql_files():
                         try:
                             with open(file_path, "r", encoding="utf-8") as f:
                                 sql = f.read()
-                                log.info(f"Executing SQL file: {file_path}")
+                                print(f"Executing SQL file: {file_path}")
                                 cur.execute(sql)
                         except Exception as e:
-                            log.error(f"Failed to execute {filename}: {e}")
+                            print(f"Failed to execute {filename}: {e}")
             conn.commit()
-            log.info("All SQL files executed successfully.")
+            print("All SQL files executed successfully.")
 
 
 @task
@@ -80,11 +77,12 @@ def insert_dim_user():
             user_id,
             LOWER(gender) AS gender,
             YEAR(birth_date) AS birth_year,
-            CONCAT(ssafy_year, '-', class_num) AS ssafy_class,
-            ssafy_region AS region
+            CAST(ssafy_year AS UNSIGNED) AS ssafy_year,
+            CAST(class_num AS UNSIGNED) AS ssafy_class,
+            ssafy_region
         FROM account
     """
-    column_order = ["user_id", "gender", "birth_year", "ssafy_class", "region"]
+    column_order = ["user_id", "gender", "birth_year", "ssafy_year", "ssafy_class", "ssafy_region"]
     fetch_and_insert(query, "ssabab_dw.dim_user", column_order, insert_strategy="ignore")
 
 

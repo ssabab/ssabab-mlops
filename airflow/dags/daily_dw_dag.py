@@ -12,7 +12,6 @@ default_args = {
     "retries": 1,
     "retry_delay": timedelta(minutes=3),
 }
-
 with DAG(
     dag_id="daily_dw_dag",
     default_args=default_args,

@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -291,
-    "scrollLeft": -360.8557,
+    "scrollTop": -353,
+    "scrollLeft": -700.8557,
     "zoomLevel": 0.73,
     "show": 431,
     "database": 4,
@@ -96,6 +96,7 @@
           "T3tr1-5Hdf89GXTGIZOLw",
           "59FuYNNxaEVMHrMogFAlz",
           "WJrAh-LPwZLUkjMvi2uZf",
+          "hlz3v3XzQvUBbdTQBVNJW",
           "76tob2lrenEKMQurwFPpB"
         ],
         "seqColumnIds": [
@@ -103,6 +104,7 @@
           "T3tr1-5Hdf89GXTGIZOLw",
           "59FuYNNxaEVMHrMogFAlz",
           "WJrAh-LPwZLUkjMvi2uZf",
+          "hlz3v3XzQvUBbdTQBVNJW",
           "76tob2lrenEKMQurwFPpB"
         ],
         "ui": {
@@ -114,7 +116,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1751437686517,
+          "updateAt": 1751454682377,
           "createAt": 1751383004788
         }
       },
@@ -527,40 +529,40 @@
       "WJrAh-LPwZLUkjMvi2uZf": {
         "id": "WJrAh-LPwZLUkjMvi2uZf",
         "tableId": "-zKZBUcKcsknRv4FSsCTH",
-        "name": "ssafy_class",
+        "name": "ssafy_year",
         "comment": "",
-        "dataType": "VARCHAR(10)",
+        "dataType": "INT",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 75,
+          "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1751383538499,
+          "updateAt": 1751454699077,
           "createAt": 1751383431979
         }
       },
       "76tob2lrenEKMQurwFPpB": {
         "id": "76tob2lrenEKMQurwFPpB",
         "tableId": "-zKZBUcKcsknRv4FSsCTH",
-        "name": "region",
+        "name": "ssafy_region",
         "comment": "",
         "dataType": "VARCHAR(50)",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 60,
+          "widthName": 67,
           "widthComment": 60,
           "widthDataType": 75,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1751383538946,
+          "updateAt": 1751454695004,
           "createAt": 1751383451347
         }
       },
@@ -1423,6 +1425,26 @@
           "updateAt": 1751388028757,
           "createAt": 1751388028757
         }
+      },
+      "hlz3v3XzQvUBbdTQBVNJW": {
+        "id": "hlz3v3XzQvUBbdTQBVNJW",
+        "tableId": "-zKZBUcKcsknRv4FSsCTH",
+        "name": "ssafy_class",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1751455001511,
+          "createAt": 1751454680907
+        }
       }
     },
     "relationshipEntities": {
@@ -1436,8 +1458,8 @@
           "columnIds": [
             "mMgn-9Uv97uir754oL6UI"
           ],
-          "x": 1009.9025,
-          "y": 548.7982,
+          "x": 1016.9025,
+          "y": 557.7982,
           "direction": 2
         },
         "end": {
@@ -1464,8 +1486,8 @@
           "columnIds": [
             "mMgn-9Uv97uir754oL6UI"
           ],
-          "x": 1009.9025,
-          "y": 504.7982,
+          "x": 1016.9025,
+          "y": 507.7982,
           "direction": 2
         },
         "end": {
@@ -1492,8 +1514,8 @@
           "columnIds": [
             "mMgn-9Uv97uir754oL6UI"
           ],
-          "x": 1009.9025,
-          "y": 636.7982,
+          "x": 1016.9025,
+          "y": 657.7982,
           "direction": 2
         },
         "end": {
@@ -1520,8 +1542,8 @@
           "columnIds": [
             "mMgn-9Uv97uir754oL6UI"
           ],
-          "x": 1009.9025,
-          "y": 592.7982,
+          "x": 1016.9025,
+          "y": 607.7982,
           "direction": 2
         },
         "end": {
@@ -1549,7 +1571,7 @@
             "mMgn-9Uv97uir754oL6UI"
           ],
           "x": 629.9025,
-          "y": 570.7982,
+          "y": 582.7982,
           "direction": 1
         },
         "end": {

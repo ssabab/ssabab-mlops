@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS ssabab_dw.fact_user_menu_feedback (
     pre_vote TINYINT,
     comment_date DATE,
     PRIMARY KEY (user_id, menu_id, comment_date),
-    FOREIGN KEY (user_id) REFERENCES ssabab_dw.dim_user(user_id),
+    FOREIGN KEY (user_id) REFERENCES ssabab_dw.dim_user(user_id)
 );

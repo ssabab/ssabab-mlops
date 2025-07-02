@@ -1,18 +1,16 @@
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
-from datetime import datetime, timedelta
+from datetime import datetime
 from tasks.generate_insight import *
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2025, 6, 1),
-    "retries": 1,
-    "retry_delay": timedelta(minutes=3),
+    "start_date": datetime(2025, 6, 1)
 }
 with DAG(
     dag_id="daily_user_insight_dag",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval=None,
     catchup=False,
     description="LLM 기반 사용자 인사이트 생성 DAG",
     tags=["llm", "user", "insight"]
