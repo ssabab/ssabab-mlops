@@ -42,7 +42,7 @@ with DAG(
     )
 
     generate_train_data = generate_xgb_train_csv()
-    train_model = train_xgb_model()
+    train_model = train_xgb_model(generate_train_data)
 
     validate_model = DummyOperator(task_id="validate_model")
 

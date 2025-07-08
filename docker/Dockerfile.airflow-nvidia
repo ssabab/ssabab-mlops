@@ -1,0 +1,57 @@
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+
+ARG AIRFLOW_VERSION=2.10.5
+ARG PYTHON_VERSION=3.10
+ARG CONSTRAINT_URL=https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt
+
+# 기본 시스템 패키지 설치
+RUN apt update && apt install -y \
+    python3-pip python3-dev openjdk-17-jdk \
+    curl wget unzip gcc g++ make \
+    libfreetype6-dev libpng-dev libjpeg-dev pkg-config
+
+# 환경 변수 설정
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV SPARK_VERSION=3.5.4
+ENV SPARK_HOME=/opt/spark
+ENV PATH="${JAVA_HOME}/bin:${SPARK_HOME}/bin:${PATH}"
+
+# Spark 설치
+RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz && \
+    tar -xvzf spark-${SPARK_VERSION}-bin-hadoop3.tgz -C /opt/ && \
+    mv /opt/spark-${SPARK_VERSION}-bin-hadoop3 $SPARK_HOME && \
+    rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
+
+# MySQL JDBC 드라이버 설치
+RUN wget https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar \
+    -O /opt/spark/jars/mysql-connector-java.jar
+
+# pip 업그레이드 및 Python 패키지 전체 설치 (Airflow + ML + Spark 등)
+RUN pip install --upgrade pip && \
+    pip install \
+        "apache-airflow[celery,postgres,redis]==2.10.5" \
+        apache-airflow-providers-apache-spark \
+        apache-airflow-providers-apache-kafka \
+        apache-airflow-providers-postgres \
+        confluent-kafka \
+        kafka-python \
+        pyspark==3.5.4 \
+        pymysql \
+        psycopg2-binary \
+        python-dotenv==1.0.1 \
+        pandas \
+        numpy \
+        transformers==4.52.4 \
+        accelerate==1.7.0 \
+        konlpy \
+        scikit-learn \
+        mlflow \
+        xgboost==1.7.6 \
+        PyYAML \
+        joblib==1.4.2 \
+        --constraint "${CONSTRAINT_URL}" && \
+    pip install torch==2.5.1+cu121 torchvision --index-url https://download.pytorch.org/whl/cu121
+
+
+# 작업 디렉토리 설정
+WORKDIR /opt/airflow

@@ -63,7 +63,7 @@ def check_menu_count():
         raise AirflowSkipException(f"Menu doesn't exist")
 
 
-@task
+@task(queue="gpu")
 def train_xgb_model(csv_path):
     context = get_current_context()
     execution_date = context["execution_date"].format("YYYY-MM-DD")
