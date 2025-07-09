@@ -2,6 +2,7 @@ from collections import Counter, defaultdict
 import pandas as pd
 from konlpy.tag import Okt
 from airflow.decorators import task
+from airflow.operators.python import get_current_context
 from utils.db import get_mysql_connection
 import json
 
@@ -10,32 +11,40 @@ STOPWORDS = {
     "거", "것", "근데", "그건", "이건", "저건", "그게", "이게", "저게",
     "해서", "했는데", "했어요", "입니다", "있어요", "있는", "없는", "하기",
     "처럼", "같이", "때문", "하면서", "보다", "보다도", "까지",
-    "맛", "밥", "음식", "요리", "식사", "메뉴", "이다"
+    "맛", "밥", "음식", "요리", "식사", "메뉴", "이다", "있다"
 }
 
 
 @task
 def fetch_review_df():
+    context = get_current_context()
+    execution_date = context["execution_date"].format("YYYY-MM-DD")
+
     conn = get_mysql_connection()
-    query = """
+    query = f"""
         SELECT user_id, menu_comment, comment_date 
         FROM ssabab_dw.fact_user_menu_feedback
+        WHERE DATE(comment_date) = '{execution_date}'
     """
     df = pd.read_sql(query, conn)
     conn.close()
-    return df.to_json(orient="records", force_ascii=False)
+
+    return df.to_json(orient="records", force_ascii=False, date_format="iso")
 
 
 @task
 def parse_nouns(json_str: str):
     df = pd.read_json(json_str)
     okt = Okt()
-    
     merged_counter = defaultdict(int)
 
     for _, row in df.iterrows():
-        if pd.isnull(row["menu_comment"]):
+        if pd.isnull(row["menu_comment"]) or pd.isnull(row["comment_date"]):
             continue
+        try:
+            comment_date = pd.to_datetime(row["comment_date"]).strftime("%Y-%m-%d")
+        except Exception:
+            comment_date = "1970-01-01"
 
         text = row["menu_comment"]
         pos_result = okt.pos(text, norm=True, stem=True)
@@ -47,7 +56,7 @@ def parse_nouns(json_str: str):
 
         counter = Counter(words)
         for word, count in counter.items():
-            key = (row["user_id"], word, row["comment_date"])
+            key = (row["user_id"], word, comment_date)
             merged_counter[key] += count
 
     records = [
