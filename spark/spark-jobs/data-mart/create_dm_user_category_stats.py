@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import count as count_, col
+from pyspark.sql.functions import count as count_, col, first
 from utils.db import get_mysql_jdbc_url, get_mysql_jdbc_properties
 
 spark = SparkSession.builder.appName("create_dm_user_category_stats").getOrCreate()
@@ -13,11 +13,13 @@ ratings_df = spark.read.jdbc(
     properties=mysql_props
 )
 
-menu_food_df = spark.read.jdbc(
+menu_food_df_raw = spark.read.jdbc(
     url=mysql_url,
     table="ssabab_dw.dim_menu_food_combined",
     properties=mysql_props
 )
+
+menu_food_df = menu_food_df_raw.groupBy("food_id").agg(first("category_name").alias("category_name"))
 
 ratings_with_category_df = ratings_df.join(menu_food_df, on="food_id", how="inner") \
     .select("user_id", "category_name")

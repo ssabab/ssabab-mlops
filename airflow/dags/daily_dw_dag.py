@@ -68,4 +68,4 @@ with DAG(
         wait_for_completion=True,
     )
 
-    start >> create_schema >> execution_log >> dim_group >> dim_done >> fact_group >> fact_done >> [trigger_keyword_dag, trigger_insight_dag] >> trigger_report_dag >> end
+    start >> create_schema >> execution_log >> dim_group >> dim_done >> fact_group >> fact_done >> [trigger_keyword_dag] >> trigger_report_dag >> end
